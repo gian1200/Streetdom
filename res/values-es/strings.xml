@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Streetdom</string>
+    <string name="place_check">Revisar Lugar</string>
+    <string name="mission_open_map">Abrir Map</string>
+    <string name="missions">Misiones</string>
+    <string name="completed_missions">Misiones Completas</string>
+    <string name="incompleted_missions">Misiones Imcompletas</string>
+    <string name="new_missions">Misiones Nuevas</string>
+
+</resources>

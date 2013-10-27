@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Streetdom</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_clue">ClueActivity</string>
+    <string name="title_activity_place">PlaceActivity</string>
+    <string name="title_activity_mission">MissionActivity</string>
+    <string name="title_activity_missions">MissionsActivity</string>
+    <string name="place_check">Check</string>
+    <string name="mission_open_map">Open Map</string>
+    <string name="missions">Missions</string>
+    <string name="completed_missions">Completed Missions</string>
+    <string name="incompleted_missions">Incompleted Missions</string>
+    <string name="new_missions">New Missions</string>
+
+</resources>
