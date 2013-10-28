@@ -1,5 +1,7 @@
 package com.gian1200.games.streetdom;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
@@ -91,6 +93,26 @@ public class MapActivity extends Activity {
 									circle.setRadius(animatedFraction);
 								}
 							});
+					circleAnimator.addListener(new AnimatorListener() {
+
+						@Override
+						public void onAnimationStart(Animator animation) {
+						}
+
+						@Override
+						public void onAnimationEnd(Animator animation) {
+						}
+
+						@Override
+						public void onAnimationCancel(Animator animation) {
+						}
+
+						@Override
+						public void onAnimationRepeat(Animator animation) {
+							circle.setCenter(currentLocation);
+						}
+
+					});
 					if (!circleAnimator.isRunning()) {
 						circleAnimator.start();
 					}
