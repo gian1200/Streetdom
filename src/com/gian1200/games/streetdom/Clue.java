@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Clue extends Hint {
 
 	int placeId;
+	String name;
 
 	public static final Parcelable.Creator<Clue> CREATOR = new Parcelable.Creator<Clue>() {
 		@Override
@@ -19,14 +20,16 @@ public class Clue extends Hint {
 		}
 	};
 
-	public Clue(String text, int placeId) {
+	public Clue(String name, String text, int placeId) {
 		super(text);
 		this.placeId = placeId;
+		this.name = name;
 	}
 
 	private Clue(Parcel in) {
 		super(in);
 		placeId = in.readInt();
+		name = in.readString();
 	}
 
 	@Override
@@ -38,5 +41,6 @@ public class Clue extends Hint {
 	public void writeToParcel(Parcel dest, int flags) {
 		super.writeToParcel(dest, flags);
 		dest.writeInt(placeId);
+		dest.writeString(name);
 	}
 }

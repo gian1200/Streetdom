@@ -30,11 +30,7 @@ public class Application extends ApplicationUtil {
 		buyableMissions = new ArrayList<Mission>();
 		incompletedMissions = new ArrayList<Mission>();
 		completedMissions = new ArrayList<Mission>();
-		missions.add(returnNuewMission(1));
-		missions.add(returnNuewMission(2));
-		missions.add(returnNuewMission(3));
-		missions.add(returnNuewMission(4));
-		missions.add(returnNuewMission(5));
+		fillMisions();
 		for (Mission mission : missions) {
 			if (mission.isCompleted) {
 				completedMissions.add(mission);
@@ -54,24 +50,52 @@ public class Application extends ApplicationUtil {
 		// TODO grabar user en SharedPreferences
 	}
 
-	private Mission returnNuewMission(int id) {
+	private void fillMisions() {
 		Place[] places = new Place[] {
-				new Place(1, "Lugar 1", "Descripción del lugar 1",
+				new Place(1, "Palacio de Justicia", "Descripción del lugar 1",
 						-12.092548137298373, -76.99775375425816),
-				new Place(2, "Lugar 2", "Descripción del lugar 2",
+				new Place(
+						2,
+						"Bar La Catedral",
+						"A very popular bar in the 50s where the famous peruvian writer, Mario Vargas Llosa, got inspiration to write his famous book Conversaciones en la Catedral. In this specific place, the guardians hide out for a few days.",
 						-12.09261731079396, -76.99825935065746),
-				new Place(3, "Lugar 3", "Descripción del lugar 3",
+				new Place(3, "Hotel Sheraton", "Descripción del lugar 3",
 						-12.09302153280611, -76.99819531291723),
-				new Place(4, "Lugar 4", "Descripción del lugar 4",
-						-12.093088360535287, -76.99774872511625) };
-		Clue[] clues = new Clue[places.length];
-		for (int i = 0; i < places.length; i++) {
-			clues[i] = new Clue("Esta es la descripción de la pista",
-					places[i].id);
-		}
-		Mission mission = new Mission(id, "Nombre de la Misión",
-				"Descripción de la misión", places, clues);
-		return mission;
+				new Place(4, "Casa de los guardianes",
+						"Descripción del lugar 4", -12.093088360535287,
+						-76.99774872511625) };
+		Clue[] clues = new Clue[] {
+				new Clue(
+						"Accused",
+						"Source of inspiration. Peruvian Writer. 1969. Nobel Prize.",
+						1),
+				new Clue(
+						"Trap",
+						"Source of inspiration. Peruvian Writer. 1969. Nobel Prize.",
+						2),
+				new Clue(
+						"Secret",
+						"Source of inspiration. Peruvian Writer. 1969. Nobel Prize.",
+						3) };
+		missions.add(new Mission(
+				1,
+				"Miscarriage of Justice",
+				"There was a place in our city where the most dangerous criminals were locked. There was a group of people: \"The Guardians\" who were aware of the most important secret of the world. However, they were accused for a crime they didn't commit. Everyone was after them because there was a huge reward. They realised that there was no way out of it and decided to hide the secret. While being chased, they left clues along the path, visible only to those who know where to look. One that leads to another. The last one was the key to find the secret. The most omportant secret on Earth.",
+				places, clues));
+		missions.add(new Mission(2, "Temple of the Sun",
+				"Descripción de la misión", places, clues));
+		missions.add(new Mission(3, "Lost Traveler",
+				"Descripcion de la misión Lost Traveler", places, clues));
+		missions.add(new Mission(4, "The path of no return",
+				"Descripcion de la misión The path of no return", places, clues));
+		missions.add(new Mission(5, "Forbidden Kingdom",
+				"Descripcion de la misión", places, clues));
+		missions.add(new Mission(6, "The collector",
+				"Descripcion de la misión", places, clues));
+		missions.add(new Mission(
+				6,
+				"The collector de los tesoros más increibles que puedan existir",
+				"Descripcion de la misión", places, clues));
 
 	}
 }

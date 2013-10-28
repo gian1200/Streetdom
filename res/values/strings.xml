@@ -3,7 +3,6 @@
 
     <string name="app_name">Streetdom</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_clue">ClueActivity</string>
     <string name="title_activity_place">PlaceActivity</string>

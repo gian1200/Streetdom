@@ -30,12 +30,14 @@ public class ListBuyableMissionsFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				//TODO ver caracteristicas de la mision y q te mande a comprarla
-//				Intent intent = new Intent(getActivity(), MissionActivity.class);
-//				intent.putExtra(getActivity().getPackageName() + ".mission",
-//						((MissionAdapter) parent.getAdapter())
-//								.getItem(position));
-//				startActivity(intent);
+				// TODO ver caracteristicas de la mision y q te mande a
+				// comprarla
+				// Intent intent = new Intent(getActivity(),
+				// MissionActivity.class);
+				// intent.putExtra(getActivity().getPackageName() + ".mission",
+				// ((MissionAdapter) parent.getAdapter())
+				// .getItem(position));
+				// startActivity(intent);
 			}
 		});
 		return missionsList;
@@ -80,16 +82,16 @@ public class ListBuyableMissionsFragment extends Fragment {
 				holder = new ViewHolder();
 				holder.name = (TextView) convertView
 						.findViewById(R.id.mission_name);
-//				holder.progress = (TextView) convertView
-//						.findViewById(R.id.mission_progress);
+				// holder.progress = (TextView) convertView
+				// .findViewById(R.id.mission_progress);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.name.setText(getItem(position).name);
-			//TODO mostrar precio?
-//			holder.progress.setText(String.format("%3.0f%%",
-//					getItem(position).progress * 100));
+			// TODO mostrar precio?
+			// holder.progress.setText(String.format("%3.0f%%",
+			// getItem(position).progress * 100));
 			return convertView;
 		}
 
