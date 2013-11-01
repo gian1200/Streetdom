@@ -6,13 +6,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class MissionActivity extends Activity {
 
 	TextView title, description;
 	Mission mission;
+	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	private static final int STREETDOM_MISSION = 3333;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,47 +40,81 @@ public class MissionActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			startActivity(new Intent(this, SettingsActivity.class));
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
 	public void openMap(View v) {
+		int errorCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
+		switch (errorCode) {
+		case ConnectionResult.SUCCESS:
+			break;
+		case ConnectionResult.SERVICE_MISSING:
+		case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
+		case ConnectionResult.SERVICE_DISABLED:
+		case ConnectionResult.SERVICE_INVALID:
+			GooglePlayServicesUtil.getErrorDialog(errorCode, this,
+					PLAY_SERVICES_RESOLUTION_REQUEST).show();
+			return;
+		}
 		Intent intent = new Intent(this, MapActivity.class);
 		intent.putExtra(getPackageName() + ".places", mission.places);
 		intent.putExtra(getPackageName() + ".currentClue",
 				mission.clues[mission.currentClue]);
-		startActivityForResult(intent, 0);
+		startActivityForResult(intent, STREETDOM_MISSION);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			if (data != null) {
-				if (!mission.isCompleted) {
-					Bundle extras = data.getExtras();
-					if (getResources().getInteger(
-							R.integer.result_code_right_place) == extras
-							.getInt(getPackageName() + ".resultCode")) {
-						mission.currentClue++;
-						mission.progress = (float) mission.currentClue
-								/ mission.clues.length;
-						mission.isCompleted = mission.clues.length <= mission.currentClue;
-						ArrayList<Mission> missions = ((Application) getApplication()).missions;
-						for (Mission mission : missions) {
-							if (mission.id == this.mission.id) {
-								mission.currentClue = this.mission.currentClue;
-								mission.progress = this.mission.progress;
-								mission.isCompleted = this.mission.isCompleted;
-								if (mission.isCompleted) {
-									((Application) getApplication()).incompletedMissions
-											.remove(mission);
-									if (!((Application) getApplication()).completedMissions
-											.contains(mission)) {
-										((Application) getApplication()).completedMissions
-												.add(mission);
+		switch (requestCode) {
+		case PLAY_SERVICES_RESOLUTION_REQUEST:
+			if (resultCode != RESULT_OK) {
+				Toast.makeText(this,
+						R.string.google_play_services_must_be_installed,
+						Toast.LENGTH_SHORT).show();
+			}
+			return;
+		case STREETDOM_MISSION:
+			if (resultCode == RESULT_OK) {
+				if (data != null) {
+					if (!mission.isCompleted) {
+						Bundle extras = data.getExtras();
+						if (getResources().getInteger(
+								R.integer.result_code_right_place) == extras
+								.getInt(getPackageName() + ".resultCode")) {
+							mission.currentClue++;
+							mission.progress = (float) mission.currentClue
+									/ mission.clues.length;
+							mission.isCompleted = mission.clues.length <= mission.currentClue;
+							ArrayList<Mission> missions = ((Application) getApplication()).missions;
+							for (Mission mission : missions) {
+								if (mission.id == this.mission.id) {
+									mission.currentClue = this.mission.currentClue;
+									mission.progress = this.mission.progress;
+									mission.isCompleted = this.mission.isCompleted;
+									if (mission.isCompleted) {
+										((Application) getApplication()).incompletedMissions
+												.remove(mission);
+										if (!((Application) getApplication()).completedMissions
+												.contains(mission)) {
+											((Application) getApplication()).completedMissions
+													.add(mission);
+										}
 									}
+									break;
 								}
-								break;
 							}
+							((Application) getApplication()).saveData();
 						}
-						((Application) getApplication()).saveData();
 					}
 				}
 			}

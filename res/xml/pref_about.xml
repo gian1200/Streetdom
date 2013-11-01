@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <Preference
+        android:key="licence"
+        android:title="@string/license" />
+    <Preference
+        android:key="us"
+        android:title="@string/us" />
+    <Preference
+        android:key="versionname"
+        android:title="@string/version" />
+
+</PreferenceScreen>

@@ -2,9 +2,11 @@ package com.gian1200.games.streetdom;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 
 import com.gian1200.util.ApplicationUtil;
 
@@ -14,6 +16,15 @@ public class Application extends ApplicationUtil {
 			completedMissions;
 	int clueCoinsPrice, cluePointsPrice, helpCoinsPrice, helpPointsPrice;
 	Calendar lastSinc;
+	Locale[] languages = new Locale[] { null, new Locale("en"),
+			new Locale("es") };
+
+	@Override
+	public void onCreate() {
+		// TODO Auto-generated method stub
+		super.onCreate();
+		languages[0] = Locale.getDefault();
+	}
 
 	@Override
 	protected void loadData(SharedPreferences sharedPreferences) {
@@ -37,6 +48,14 @@ public class Application extends ApplicationUtil {
 			} else {
 				incompletedMissions.add(mission);
 			}
+		}
+
+		if (sharedPreferences.contains("language")) {
+			int languageIndex = Integer.parseInt(sharedPreferences.getString(
+					"language", "0"));
+			Configuration config = new Configuration();
+			config.locale = languages[languageIndex];
+			getResources().updateConfiguration(config, null);
 		}
 	}
 

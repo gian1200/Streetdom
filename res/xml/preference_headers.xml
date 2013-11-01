@@ -1,0 +1,13 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <header
+        android:fragment="com.gian1200.games.streetdom.SettingsActivity$GeneralPreferenceFragment"
+        android:title="@string/notifications" />
+    <header
+        android:fragment="com.gian1200.games.streetdom.SettingsActivity$NotificationsPreferenceFragment"
+        android:title="@string/notifications" />
+    <header
+        android:fragment="com.gian1200.games.streetdom.SettingsActivity$AboutPreferenceFragment"
+        android:title="@string/about" />
+
+</preference-headers>

@@ -8,5 +8,18 @@
     <string name="completed_missions">Misiones Completas</string>
     <string name="incompleted_missions">Misiones Imcompletas</string>
     <string name="new_missions">Misiones Nuevas</string>
+    <string name="share">Compartir</string>
+    <!-- Google Play -->
+    <string name="google_play_services_must_be_installed">Google Play Services debe ser instalado</string>
+    <!-- Settings -->
+    <string name="settings">Configuración</string>
+    <string name="general">General</string>
+    <string name="language">Idioma</string>
+    <string name="language_default">Defecto</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="about">Acerca de</string>
+    <string name="license">Licencia</string>
+    <string name="us">Nosotros</string>
+    <string name="version">Versión</string>
 
 </resources>

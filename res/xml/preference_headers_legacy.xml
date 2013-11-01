@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/general" >
+        <ListPreference
+            android:dialogTitle="Application language"
+            android:key="language"
+            android:persistent="true"
+            android:title="@string/language" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/notifications" >
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/about" >
+        <Preference
+            android:key="licence"
+            android:title="@string/license" />
+        <Preference
+            android:key="us"
+            android:title="@string/us" />
+        <Preference
+            android:key="versionname"
+            android:title="@string/version" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
