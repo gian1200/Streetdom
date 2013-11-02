@@ -22,6 +22,7 @@ public class MissionsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		((Application) getApplication()).refreshLanguage();
 		setContentView(R.layout.activity_missions);
 		mViewPager = (ViewPager) findViewById(R.id.missions_pager);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());

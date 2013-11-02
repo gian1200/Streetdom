@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 
 import com.gian1200.util.ApplicationUtil;
 
@@ -50,12 +51,22 @@ public class Application extends ApplicationUtil {
 			}
 		}
 
+	}
+
+	void refreshLanguage() {
+		refreshLanguage(PreferenceManager.getDefaultSharedPreferences(this));
+	}
+
+	void refreshLanguage(SharedPreferences sharedPreferences) {
 		if (sharedPreferences.contains("language")) {
 			int languageIndex = Integer.parseInt(sharedPreferences.getString(
 					"language", "0"));
-			Configuration config = new Configuration();
-			config.locale = languages[languageIndex];
-			getResources().updateConfiguration(config, null);
+			if (!getResources().getConfiguration().locale
+					.equals(languages[languageIndex])) {
+				Configuration config = new Configuration();
+				config.locale = languages[languageIndex];
+				getResources().updateConfiguration(config, null);
+			}
 		}
 	}
 

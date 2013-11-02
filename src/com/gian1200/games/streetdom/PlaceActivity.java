@@ -18,6 +18,7 @@ public class PlaceActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		((Application) getApplication()).refreshLanguage();
 		setContentView(R.layout.activity_place);
 		Bundle extras = getIntent().getExtras();
 		currentLocation = (Location) extras.getParcelable(getPackageName()

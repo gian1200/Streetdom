@@ -9,6 +9,7 @@ public class ClueActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		((Application) getApplication()).refreshLanguage();
 		setContentView(R.layout.activity_clue);
 	}
 

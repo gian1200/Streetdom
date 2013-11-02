@@ -24,6 +24,7 @@ public class MissionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		((Application) getApplication()).refreshLanguage();
 		setContentView(R.layout.activity_mission);
 		Bundle extras = getIntent().getExtras();
 		mission = (Mission) extras.getParcelable(getPackageName() + ".mission");

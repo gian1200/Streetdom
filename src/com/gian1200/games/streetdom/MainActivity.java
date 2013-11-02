@@ -24,10 +24,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Locale locale = new Locale("es");
-		// Configuration config = new Configuration();
-		// config.locale = locale;
-		// getResources().updateConfiguration(config, null);
+		((Application) getApplication()).refreshLanguage();
 		setContentView(R.layout.activity_main);
 		mission = ((Application) getApplication()).missions.get(0);
 	}

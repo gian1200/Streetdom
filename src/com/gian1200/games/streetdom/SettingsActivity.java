@@ -25,6 +25,7 @@ public class SettingsActivity extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		languages = ((Application) getApplication()).languages;
+		((Application) getApplication()).refreshLanguage();
 		if (needResource
 				|| Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
 			addPreferencesFromResource(R.xml.preference_headers_legacy);
@@ -117,23 +118,23 @@ public class SettingsActivity extends PreferenceActivity {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class NotificationsPreferenceFragment extends
 			PreferenceFragment {
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_notification);
-
 		}
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class AboutPreferenceFragment extends PreferenceFragment {
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_about);
 			((SettingsActivity) getActivity())
 					.prepareVersion(findPreference("versionname"));
-
 		}
 	}
 
