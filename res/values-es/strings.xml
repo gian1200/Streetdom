@@ -9,6 +9,9 @@
     <string name="incompleted_missions">Misiones Imcompletas</string>
     <string name="new_missions">Misiones Nuevas</string>
     <string name="share">Compartir</string>
+    <!-- Sign In -->
+    <string name="continue_without_registering">Continuar sin registrarse</string>
+    <string name="no_sign_in_description">No podrás sincronizar tu progreso ni usar todas las características</string>
     <!-- Google Play -->
     <string name="google_play_services_must_be_installed">Google Play Services debe ser instalado</string>
     <!-- Settings -->

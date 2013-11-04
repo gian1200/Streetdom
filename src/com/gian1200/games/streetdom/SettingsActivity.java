@@ -51,7 +51,7 @@ public class SettingsActivity extends PreferenceActivity {
 					getPackageName(), 0).versionName;
 			versionPreference.setSummary(versionName);
 		} catch (NameNotFoundException e) {
-			Log.e("", e.getMessage());
+			Log.e("", e.getMessage(), e);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class SettingsActivity extends PreferenceActivity {
 			final ListPreference languagePreference) {
 		String[] entries = new String[languages.length];
 		String[] entryValues = new String[languages.length];
-
+		int defaultValueIndex = 0;
 		for (int i = 0; i < languages.length; i++) {
 			if (i == 0) {
 				entries[i] = getString(R.string.language_default);
@@ -68,12 +68,13 @@ public class SettingsActivity extends PreferenceActivity {
 			}
 			entryValues[i] = "" + i;
 			if (getResources().getConfiguration().locale.equals(languages[i])) {
-				languagePreference.setDefaultValue("" + i);
+				defaultValueIndex = i;
 				languagePreference.setSummary(languages[i].getDisplayName());
 			}
 		}
 		languagePreference.setEntries(entries);
 		languagePreference.setEntryValues(entryValues);
+		languagePreference.setValueIndex(defaultValueIndex);
 		languagePreference
 				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 

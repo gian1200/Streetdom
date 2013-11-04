@@ -15,6 +15,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gian1200.util.ColorUtil;
+
 public class ListMissionsFragment extends Fragment {
 	ListView missionsList;
 	ArrayList<Mission> missions;
@@ -50,10 +52,17 @@ public class ListMissionsFragment extends Fragment {
 	private class MissionAdapter extends BaseAdapter {
 		Activity activity;
 		ArrayList<Mission> missions;
+		int red, yellow, green;
 
 		public MissionAdapter(Activity activity, ArrayList<Mission> missions) {
 			this.activity = activity;
 			this.missions = missions;
+			yellow = activity.getResources().getColor(
+					R.color.mission_progress_yellow);
+			red = activity.getResources()
+					.getColor(R.color.mission_progress_red);
+			green = activity.getResources().getColor(
+					R.color.mission_progress_green);
 		}
 
 		@Override
@@ -86,9 +95,17 @@ public class ListMissionsFragment extends Fragment {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
+			float progress = getItem(position).progress * 100;
+			progress = (float) (Math.random() * 100);
+			if (progress <= 50) {
+				holder.progress.setTextColor(ColorUtil.getColorBetween(red,
+						yellow, progress / 50));
+			} else {
+				holder.progress.setTextColor(ColorUtil.getColorBetween(yellow,
+						green, (progress - 50) / 50));
+			}
 			holder.name.setText(getItem(position).name);
-			holder.progress.setText(String.format("%3.0f%%",
-					getItem(position).progress * 100));
+			holder.progress.setText(String.format("%3.0f%%", progress));
 			return convertView;
 		}
 

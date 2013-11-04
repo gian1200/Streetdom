@@ -17,12 +17,10 @@ public class Application extends ApplicationUtil {
 			completedMissions;
 	int clueCoinsPrice, cluePointsPrice, helpCoinsPrice, helpPointsPrice;
 	Calendar lastSinc;
-	Locale[] languages = new Locale[] { null, new Locale("en"),
-			new Locale("es") };
+	Locale[] languages = new Locale[] { null, Locale.ENGLISH, new Locale("es") };
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		languages[0] = Locale.getDefault();
 	}
@@ -50,14 +48,14 @@ public class Application extends ApplicationUtil {
 				incompletedMissions.add(mission);
 			}
 		}
-
 	}
 
-	void refreshLanguage() {
-		refreshLanguage(PreferenceManager.getDefaultSharedPreferences(this));
+	boolean refreshLanguage() {
+		return refreshLanguage(PreferenceManager
+				.getDefaultSharedPreferences(this));
 	}
 
-	void refreshLanguage(SharedPreferences sharedPreferences) {
+	boolean refreshLanguage(SharedPreferences sharedPreferences) {
 		if (sharedPreferences.contains("language")) {
 			int languageIndex = Integer.parseInt(sharedPreferences.getString(
 					"language", "0"));
@@ -66,8 +64,10 @@ public class Application extends ApplicationUtil {
 				Configuration config = new Configuration();
 				config.locale = languages[languageIndex];
 				getResources().updateConfiguration(config, null);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	@Override

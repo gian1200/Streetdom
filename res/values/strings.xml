@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Streetdom</string>
+    <string name="title_activity_login">Sign in</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_clue">ClueActivity</string>
     <string name="title_activity_place">PlaceActivity</string>
@@ -14,6 +15,9 @@
     <string name="incompleted_missions">Incompleted Missions</string>
     <string name="new_missions">New Missions</string>
     <string name="share">Share</string>
+    <!-- Sign In -->
+    <string name="continue_without_registering">Continue Without Registering</string>
+    <string name="no_sign_in_description">You won\'t be able to sync your data or use all the features</string>
     <!-- Google Play -->
     <string name="google_play_services_must_be_installed">Google Play Services must be installed</string>
     <!-- Actions -->
