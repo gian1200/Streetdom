@@ -1,5 +1,7 @@
 package com.gian1200.games.streetdom;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -14,11 +16,13 @@ public class PlaceActivity extends Activity {
 	Clue clue;
 	TextView title, description;
 	Location currentLocation;
+	private Locale locale;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		((Application) getApplication()).refreshLanguage();
+		locale = getResources().getConfiguration().locale;
 		setContentView(R.layout.activity_place);
 		Bundle extras = getIntent().getExtras();
 		currentLocation = (Location) extras.getParcelable(getPackageName()
@@ -29,6 +33,17 @@ public class PlaceActivity extends Activity {
 		description = (TextView) findViewById(R.id.place_description);
 		title.setText(place.name);
 		description.setText(place.description);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (!locale.equals(getResources().getConfiguration().locale)) {
+			finish();
+			startActivity(getIntent());
+			overridePendingTransition(0, 0);
+			return;
+		}
 	}
 
 	@Override

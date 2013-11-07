@@ -9,11 +9,15 @@
     <string name="incompleted_missions">Misiones Imcompletas</string>
     <string name="new_missions">Misiones Nuevas</string>
     <string name="share">Compartir</string>
+    <string name="achievements">Logros</string>
+    <string name="leaderboards">Tablas de clasificación</string>
     <!-- Sign In -->
-    <string name="continue_without_registering">Continuar sin registrarse</string>
-    <string name="no_sign_in_description">No podrás sincronizar tu progreso ni usar todas las características</string>
+    <string name="not_signed_in_greeting">Hola, usuario anónimo!</string>
+    <string name="signed_in_greeting">Hola, %1$s!</string>
+    <string name="signing_in">Iniciando sesión…</string>
+    <string name="sign_in_why">Inicia sesión con Google para compartir tu puntaje y logros con tus amigos.</string>
+    <string name="sign_out">Cerrar sesión</string>
     <!-- Google Play -->
-    <string name="google_play_services_must_be_installed">Google Play Services debe ser instalado</string>
     <!-- Settings -->
     <string name="settings">Configuración</string>
     <string name="general">General</string>

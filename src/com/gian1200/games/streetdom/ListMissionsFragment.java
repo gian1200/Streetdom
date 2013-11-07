@@ -96,7 +96,6 @@ public class ListMissionsFragment extends Fragment {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			float progress = getItem(position).progress * 100;
-			progress = (float) (Math.random() * 100);
 			if (progress <= 50) {
 				holder.progress.setTextColor(ColorUtil.getColorBetween(red,
 						yellow, progress / 50));

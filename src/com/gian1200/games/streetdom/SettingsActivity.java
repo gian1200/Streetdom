@@ -32,7 +32,7 @@ public class SettingsActivity extends PreferenceActivity {
 			prepareVersion(findPreference("versionname"));
 			prepareLanguagePreference((ListPreference) findPreference("language"));
 			// Log.i("", GooglePlayServicesUtil
-			// .getOpenSourceSoftwareLicenseInfo(getActivity()));
+			// .getOpenSourceSoftwareLicenseInfo(this));
 		}
 	}
 
@@ -81,6 +81,7 @@ public class SettingsActivity extends PreferenceActivity {
 					@Override
 					public boolean onPreferenceChange(Preference preference,
 							Object newValue) {
+						((Application) getApplication()).refreshLanguage();
 						Locale newLocale = languages[Integer
 								.parseInt((String) newValue)];
 						languagePreference.setSummary(newLocale
@@ -94,8 +95,8 @@ public class SettingsActivity extends PreferenceActivity {
 						// Disabled because it blinks
 						// recreate();
 						// } else {
-						startActivity(getIntent());
 						finish();
+						startActivity(getIntent());
 						overridePendingTransition(0, 0);
 						// }
 						return true;

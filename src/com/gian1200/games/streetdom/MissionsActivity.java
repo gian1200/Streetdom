@@ -18,11 +18,13 @@ public class MissionsActivity extends Activity {
 	ListView missionsList;
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
+	private Locale locale;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		((Application) getApplication()).refreshLanguage();
+		locale = getResources().getConfiguration().locale;
 		setContentView(R.layout.activity_missions);
 		mViewPager = (ViewPager) findViewById(R.id.missions_pager);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
@@ -44,6 +46,17 @@ public class MissionsActivity extends Activity {
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (!locale.equals(getResources().getConfiguration().locale)) {
+			finish();
+			startActivity(getIntent());
+			overridePendingTransition(0, 0);
+			return;
 		}
 	}
 

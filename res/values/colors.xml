@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <color name="mission_progress_red">#FF4444</color>
-    <color name="mission_progress_yellow">#FFBB33</color>
-    <color name="mission_progress_green">#99CC00</color>
+    <color name="main_sign_in_why">#808080</color>
+    <color name="main_sign_in_background">#f0f0f0</color>
+    <color name="mission_progress_red">@color/light_red</color>
+    <color name="mission_progress_yellow">@color/light_yellow</color>
+    <color name="mission_progress_green">@color/light_green</color>
+    <color name="light_green">#99CC00</color>
+    <color name="dark_green">#669900</color>
+    <color name="light_yellow">#FFBB33</color>
+    <color name="dark_yellow">#FF8800</color>
+    <color name="light_red">#FF4444</color>
+    <color name="dark_red">#CC0000</color>
     <color name="missions_tab_background">@android:color/white</color>
     <color name="missions_tab_text_color">#0099CC</color>
 

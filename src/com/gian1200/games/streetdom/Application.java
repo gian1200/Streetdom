@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.gian1200.util.ApplicationUtil;
 
@@ -64,6 +65,7 @@ public class Application extends ApplicationUtil {
 				Configuration config = new Configuration();
 				config.locale = languages[languageIndex];
 				getResources().updateConfiguration(config, null);
+				Log.i("", "se ha cambiado");
 				return true;
 			}
 		}

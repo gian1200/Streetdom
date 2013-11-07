@@ -1,5 +1,7 @@
 package com.gian1200.games.streetdom;
 
+import java.util.Locale;
+
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
@@ -242,7 +244,6 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 		if (circleAnimator != null && !circleAnimator.isRunning()) {
 			circleAnimator.start();
 		}

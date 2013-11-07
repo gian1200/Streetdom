@@ -1,6 +1,7 @@
 package com.gian1200.games.streetdom;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,11 +21,13 @@ public class MissionActivity extends Activity {
 	Mission mission;
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private static final int STREETDOM_MISSION = 3333;
+	private Locale locale;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		((Application) getApplication()).refreshLanguage();
+		locale = getResources().getConfiguration().locale;
 		setContentView(R.layout.activity_mission);
 		Bundle extras = getIntent().getExtras();
 		mission = (Mission) extras.getParcelable(getPackageName() + ".mission");
@@ -49,6 +52,17 @@ public class MissionActivity extends Activity {
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (!locale.equals(getResources().getConfiguration().locale)) {
+			finish();
+			startActivity(getIntent());
+			overridePendingTransition(0, 0);
+			return;
 		}
 	}
 
@@ -80,8 +94,8 @@ public class MissionActivity extends Activity {
 		case PLAY_SERVICES_RESOLUTION_REQUEST:
 			if (resultCode != RESULT_OK) {
 				Toast.makeText(this,
-						R.string.google_play_services_must_be_installed,
-						Toast.LENGTH_SHORT).show();
+						R.string.common_google_play_services_update_text,
+						Toast.LENGTH_LONG).show();
 			}
 			return;
 		case STREETDOM_MISSION:
