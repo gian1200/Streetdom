@@ -69,25 +69,17 @@ public class MissionsActivity extends Activity {
 		@Override
 		public Fragment getItem(int position) {
 			Fragment listMissionsFragment = null;
-			Bundle args = new Bundle();
 			switch (position) {
 			case 0:
-				listMissionsFragment = new ListMissionsFragment();
-				args.putParcelableArrayList("missions",
-						((Application) getApplication()).completedMissions);
+				listMissionsFragment = new ListCompletedMissionsFragment();
 				break;
 			case 1:
-				listMissionsFragment = new ListMissionsFragment();
-				args.putParcelableArrayList("missions",
-						((Application) getApplication()).incompletedMissions);
+				listMissionsFragment = new ListIncompletedMissionsFragment();
 				break;
 			case 2:
 				listMissionsFragment = new ListBuyableMissionsFragment();
-				args.putParcelableArrayList("missions",
-						((Application) getApplication()).buyableMissions);
 				break;
 			}
-			listMissionsFragment.setArguments(args);
 			return listMissionsFragment;
 		}
 

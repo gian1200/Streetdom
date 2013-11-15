@@ -7,6 +7,9 @@
         android:fragment="com.gian1200.games.streetdom.SettingsActivity$NotificationsPreferenceFragment"
         android:title="@string/notifications" />
     <header
+        android:fragment="com.gian1200.games.streetdom.SettingsActivity$DataPreferenceFragment"
+        android:title="@string/data" />
+    <header
         android:fragment="com.gian1200.games.streetdom.SettingsActivity$AboutPreferenceFragment"
         android:title="@string/about" />
 

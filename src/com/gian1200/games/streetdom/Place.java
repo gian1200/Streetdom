@@ -7,14 +7,21 @@ public class Place implements Parcelable {
 	int id;
 	String name, description;
 	double latitude, longitude;
+	boolean visited;
 
 	public Place(int id, String name, String description, double latitude,
 			double longitude) {
+		this(id, name, description, latitude, longitude, false);
+	}
+
+	public Place(int id, String name, String description, double latitude,
+			double longitude, boolean visited) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.visited = visited;
 	}
 
 	public static final Parcelable.Creator<Place> CREATOR = new Parcelable.Creator<Place>() {
@@ -35,6 +42,9 @@ public class Place implements Parcelable {
 		description = in.readString();
 		latitude = in.readDouble();
 		longitude = in.readDouble();
+		boolean[] booleans = new boolean[1];
+		in.readBooleanArray(booleans);
+		visited = booleans[0];
 	}
 
 	@Override
@@ -49,6 +59,10 @@ public class Place implements Parcelable {
 		dest.writeString(description);
 		dest.writeDouble(latitude);
 		dest.writeDouble(longitude);
+		dest.writeBooleanArray(new boolean[] { visited });
 	}
 
+	public void visit() {
+		visited = true;
+	}
 }

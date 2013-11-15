@@ -7,4 +7,10 @@
 
     <style name="AppTheme" parent="AppBaseTheme"></style>
 
+    <style name="AppDialogTheme" parent="AppDialogBaseTheme"></style>
+    <style name="AppAlertDialogTheme" parent="AppDialogTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        
+    </style>
+
 </resources>

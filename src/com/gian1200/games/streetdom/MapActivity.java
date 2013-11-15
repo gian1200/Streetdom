@@ -1,17 +1,13 @@
 package com.gian1200.games.streetdom;
 
-import java.util.Locale;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.DecelerateInterpolator;
@@ -21,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,10 +25,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends Activity {
-
-	Clue currentClue;
+	Mission mission;
 	Place[] places;
-	String[] markersId;
+	Marker[] markers;
 	// private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	// private LocationClient locationClient;
 	GoogleMap map;
@@ -46,18 +42,32 @@ public class MapActivity extends Activity {
 				.getMap();
 		radiusRange = getResources().getInteger(R.integer.radius_range);
 		Bundle extras = getIntent().getExtras();
-		Parcelable[] parcelables = extras.getParcelableArray(getPackageName()
-				+ ".places");
-		places = new Place[parcelables.length];
-		System.arraycopy(parcelables, 0, places, 0, parcelables.length);
-		currentClue = extras.getParcelable(getPackageName() + ".currentClue");
-		markersId = new String[places.length];
+		mission = extras.getParcelable(getPackageName() + ".mission");
+		places = mission.places;
+		markers = new Marker[places.length];
 		for (int i = 0; i < places.length; i++) {
 			Place place = places[i];
-			Marker marker = map.addMarker(new MarkerOptions()
+
+			// no visitado HUE_RED
+			// visitado HUE_ORANGE
+			// checked HUE_AZURE
+			MarkerOptions markerOption = new MarkerOptions()
 					.position(new LatLng(place.latitude, place.longitude))
-					.title(place.name).snippet(place.description));
-			markersId[i] = marker.getId();
+					.title(place.name).snippet(place.description);
+			if (i < mission.currentClue) {
+				markerOption.icon(BitmapDescriptorFactory
+						.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+			} else {
+				if (places[i].visited) {
+					markerOption.icon(BitmapDescriptorFactory
+							.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+				} else {
+					// do nothing since it already has the right
+					// color
+				}
+			}
+			markers[i] = map.addMarker(markerOption);
+
 		}
 
 		map.setMyLocationEnabled(true);
@@ -76,8 +86,12 @@ public class MapActivity extends Activity {
 					map.animateCamera(CameraUpdateFactory.newLatLngZoom(
 							currentLocation, 18));
 					circle = map.addCircle(new CircleOptions()
-							.center(currentLocation).radius(0)
-							.strokeColor(Color.RED).strokeWidth(2));
+							.center(currentLocation)
+							.radius(0)
+							.strokeColor(
+									getResources()
+											.getColor(R.color.light_green))
+							.strokeWidth(2));
 					circleAnimator = ValueAnimator.ofFloat(0, radiusRange);
 					circleAnimator.setRepeatCount(ValueAnimator.INFINITE);
 					circleAnimator.setRepeatMode(ValueAnimator.RESTART); /* PULSE */
@@ -127,14 +141,13 @@ public class MapActivity extends Activity {
 
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				for (int i = 0; i < markersId.length; i++) {
-					if (marker.getId().equals(markersId[i])) {
+				for (int i = 0; i < markers.length; i++) {
+					if (marker.getId().equals(markers[i].getId())) {
 						Intent intent = new Intent(MapActivity.this,
 								PlaceActivity.class);
+						intent.putExtra(getPackageName() + ".mission", mission);
 						intent.putExtra(getPackageName() + ".currentLocation",
 								map.getMyLocation());
-						intent.putExtra(getPackageName() + ".currentClue",
-								currentClue);
 						intent.putExtra(getPackageName() + ".place", places[i]);
 						startActivityForResult(intent, 0);
 					}
@@ -258,8 +271,33 @@ public class MapActivity extends Activity {
 				if (getResources()
 						.getInteger(R.integer.result_code_right_place) == extras
 						.getInt(getPackageName() + ".resultCode")) {
-					setResult(RESULT_OK, data);
-					finish();
+					// Lugar encontrado
+					mission = extras.getParcelable(getPackageName()
+							+ ".mission");
+					getIntent()
+							.putExtra(getPackageName() + ".mission", mission);
+					places = mission.places;
+					if (mission.isCompleted) {
+						setResult(RESULT_OK, data);
+						finish();
+					} else {
+						for (int i = 0; i < places.length; i++) {
+							if (i < mission.currentClue) {
+								markers[i]
+										.setIcon(BitmapDescriptorFactory
+												.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+							} else {
+								if (places[i].visited) {
+									markers[i]
+											.setIcon(BitmapDescriptorFactory
+													.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+								} else {
+									// do nothing since it already has the right
+									// color
+								}
+							}
+						}
+					}
 				}
 			}
 		}

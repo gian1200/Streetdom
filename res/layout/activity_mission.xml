@@ -26,17 +26,29 @@
         android:layout_below="@+id/mission_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
+        android:ellipsize="end"
         android:gravity="fill"
+        android:maxLines="5"
         android:text="@android:string/unknownName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/missionopen_map"
+        android:id="@+id/mission_open_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="openMap"
         android:text="@string/mission_open_map" />
+
+    <Button
+        android:id="@+id/mission_current_clue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mission_open_map"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:onClick="mostrarPista"
+        android:text="@string/current_clue" />
 
 </RelativeLayout>

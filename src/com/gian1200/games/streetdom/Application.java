@@ -51,6 +51,21 @@ public class Application extends ApplicationUtil {
 		}
 	}
 
+	@Override
+	protected void saveData(Editor editor) {
+		editor.putInt("clueCoinsPrice", clueCoinsPrice);
+		editor.putInt("cluePointsPrice", cluePointsPrice);
+		editor.putInt("helpCoinsPrice", helpCoinsPrice);
+		editor.putInt("helpPointsPrice", helpPointsPrice);
+		editor.putLong("lastSyncMillis", lastSinc.getTimeInMillis());
+		// TODO grabar user en SharedPreferences
+	}
+
+	void eraseData() {
+		// TODO eraseData
+		saveData();
+	}
+
 	boolean refreshLanguage() {
 		return refreshLanguage(PreferenceManager
 				.getDefaultSharedPreferences(this));
@@ -70,16 +85,6 @@ public class Application extends ApplicationUtil {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	protected void saveData(Editor editor) {
-		editor.putInt("clueCoinsPrice", clueCoinsPrice);
-		editor.putInt("cluePointsPrice", cluePointsPrice);
-		editor.putInt("helpCoinsPrice", helpCoinsPrice);
-		editor.putInt("helpPointsPrice", helpPointsPrice);
-		editor.putLong("lastSyncMillis", lastSinc.getTimeInMillis());
-		// TODO grabar user en SharedPreferences
 	}
 
 	private void fillMisions() {
@@ -129,5 +134,24 @@ public class Application extends ApplicationUtil {
 				"The collector de los tesoros más increibles que puedan existir",
 				"Descripcion de la misión", places, clues));
 
+	}
+
+	void updateMission(final Mission mission) {
+		for (Mission mission2 : missions) {
+			if (mission2.id == mission.id) {
+				mission2.currentClue = mission.currentClue;
+				mission2.progress = mission.progress;
+				mission2.isCompleted = mission.isCompleted;
+				if (mission2.isCompleted) {
+					incompletedMissions.remove(mission2);
+					if (!completedMissions.contains(mission2)) {
+						completedMissions.add(mission2);
+					}
+				}
+				break;
+			}
+		}
+		// se debería llamar aquí o solo cuando sea necesario?
+		// saveData();
 	}
 }

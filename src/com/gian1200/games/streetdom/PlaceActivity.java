@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class PlaceActivity extends Activity {
+	Mission mission;
 	Place place;
-	Clue clue;
 	TextView title, description;
 	Location currentLocation;
 	private Locale locale;
@@ -27,8 +28,8 @@ public class PlaceActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		currentLocation = (Location) extras.getParcelable(getPackageName()
 				+ ".currentLocation");
-		clue = (Clue) extras.getParcelable(getPackageName() + ".currentClue");
-		place = (Place) extras.getParcelable(getPackageName() + ".place");
+		mission = extras.getParcelable(getPackageName() + ".mission");
+		place = extras.getParcelable(getPackageName() + ".place");
 		title = (TextView) findViewById(R.id.place_title);
 		description = (TextView) findViewById(R.id.place_description);
 		title.setText(place.name);
@@ -53,26 +54,74 @@ public class PlaceActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			startActivity(new Intent(this, SettingsActivity.class));
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
 	public void checkPlace(View v) {
 		float[] results = new float[1];
 		Location.distanceBetween(currentLocation.getLatitude(),
 				currentLocation.getLongitude(), place.latitude,
 				place.longitude, results);
 		if (results[0] <= 50) {
-			if (place.id == clue.placeId) {
-				Intent data = new Intent();
-				data.putExtra(getPackageName() + ".resultCode", getResources()
-						.getInteger(R.integer.result_code_right_place));
-				setResult(RESULT_OK, data);
-				finish();
-				Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+			place.visited = true;
+			mission.getPlace(place.id).visit();
+			if (place.id == mission.getCurrentClue().placeId) {
+				mission.currentClue++;
+				mission.updateProgress();
+				((Application) getApplication()).updateMission(mission);
+				((Application) getApplication()).saveData();
+				if (mission.hasClues()) {
+					Intent intent = new Intent(this, RightPlaceActivity.class);
+					intent.putExtra(getPackageName() + ".mission", mission);
+					startActivityForResult(intent, 0);
+				} else {
+					Toast.makeText(this, "Last clue. you did it",
+							Toast.LENGTH_SHORT).show();
+					// TODO go to winning mission screen
+					finish();
+				}
 			} else {
+				((Application) getApplication()).updateMission(mission);
+				((Application) getApplication()).saveData();
 				Toast.makeText(this, "NO OK", Toast.LENGTH_SHORT).show();
 			}
 		} else {
 			Toast.makeText(this, "No estás lo suficientemente cerca",
 					Toast.LENGTH_SHORT).show();
-
 		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				if (getResources()
+						.getInteger(R.integer.result_code_right_place) == extras
+						.getInt(getPackageName() + ".resultCode")) {
+					setResult(RESULT_OK, data);
+					finish();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		Intent data = new Intent();
+		data.putExtra(getPackageName() + ".resultCode", getResources()
+				.getInteger(R.integer.result_code_right_place));
+		data.putExtra(getPackageName() + ".mission", mission);
+		setResult(RESULT_OK, data);
+		finish();
 	}
 }

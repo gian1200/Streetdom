@@ -68,4 +68,33 @@ public class Mission implements Parcelable {
 		dest.writeFloat(progress);
 	}
 
+	public Clue getCurrentClue() {
+		return clues[currentClue];
+	}
+
+	public Place getPlace(int placeId) {
+		for (Place place : places) {
+			if (place.id == placeId) {
+				return place;
+			}
+		}
+		return null;
+	}
+
+	public boolean isLastClue() {
+		return currentClue + 1 == clues.length;
+	}
+
+	public int cluesLeft() {
+		return clues.length - currentClue;
+	}
+
+	public boolean hasClues() {
+		return 0 < cluesLeft();
+	}
+
+	public void updateProgress() {
+		progress = (float) currentClue / clues.length;
+		isCompleted = clues.length <= currentClue;
+	}
 }

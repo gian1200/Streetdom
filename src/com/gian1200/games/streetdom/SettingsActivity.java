@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Locale;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -11,6 +14,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.util.Log;
@@ -29,8 +33,9 @@ public class SettingsActivity extends PreferenceActivity {
 		if (needResource
 				|| Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
 			addPreferencesFromResource(R.xml.preference_headers_legacy);
-			prepareVersion(findPreference("versionname"));
 			prepareLanguagePreference((ListPreference) findPreference("language"));
+			prepareEraseData(findPreference("erase_data"));
+			prepareVersion(findPreference("versionname"));
 			// Log.i("", GooglePlayServicesUtil
 			// .getOpenSourceSoftwareLicenseInfo(this));
 		}
@@ -42,16 +47,6 @@ public class SettingsActivity extends PreferenceActivity {
 		} else {
 			needResource = false;
 			loadHeadersFromResource(R.xml.preference_headers, target);
-		}
-	}
-
-	public void prepareVersion(Preference versionPreference) {
-		try {
-			String versionName = getPackageManager().getPackageInfo(
-					getPackageName(), 0).versionName;
-			versionPreference.setSummary(versionName);
-		} catch (NameNotFoundException e) {
-			Log.e("", e.getMessage(), e);
 		}
 	}
 
@@ -104,6 +99,55 @@ public class SettingsActivity extends PreferenceActivity {
 				});
 	}
 
+	public void prepareEraseData(Preference eraseDataPreference) {
+		eraseDataPreference
+				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						AlertDialog.Builder builder = new AlertDialog.Builder(
+								SettingsActivity.this,
+								R.style.AppAlertDialogTheme);
+						builder.setTitle(R.string.erase_data);
+						builder.setMessage(R.string.erase_data_message);
+						builder.setPositiveButton(android.R.string.ok,
+								new OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										((Application) getApplication())
+												.eraseData();
+										// TODO onResultActivity to close all
+										// activities onReturn and send back to
+										// MainActivity
+									}
+								});
+						builder.setNegativeButton(android.R.string.no,
+								new OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// do nothing
+									}
+								});
+						builder.show();
+						return true;
+					}
+				});
+	}
+
+	public void prepareVersion(Preference versionPreference) {
+		try {
+			String versionName = getPackageManager().getPackageInfo(
+					getPackageName(), 0).versionName;
+			versionPreference.setSummary(versionName);
+		} catch (NameNotFoundException e) {
+			Log.e("", e.getMessage(), e);
+		}
+	}
+
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class GeneralPreferenceFragment extends PreferenceFragment {
 
@@ -125,6 +169,18 @@ public class SettingsActivity extends PreferenceActivity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_notification);
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public static class DataPreferenceFragment extends PreferenceFragment {
+
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.pref_data);
+			((SettingsActivity) getActivity())
+					.prepareEraseData(findPreference("erase_data"));
 		}
 	}
 

@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.gian1200.util.ColorUtil;
 
-public class ListMissionsFragment extends Fragment {
+public abstract class ListMissionsFragment extends Fragment {
 	ListView missionsList;
 	ArrayList<Mission> missions;
 
@@ -26,8 +26,9 @@ public class ListMissionsFragment extends Fragment {
 			Bundle savedInstanceState) {
 		missionsList = (ListView) inflater.inflate(
 				R.layout.fragment_missions_page, container, false);
-		missions = getArguments().getParcelableArrayList("missions");
-		missionsList.setAdapter(new MissionAdapter(getActivity(), missions));
+		missions = getMissions();
+		missionsList
+				.setAdapter(new ListMissionAdapter(getActivity(), missions));
 		missionsList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -35,7 +36,7 @@ public class ListMissionsFragment extends Fragment {
 					int position, long id) {
 				Intent intent = new Intent(getActivity(), MissionActivity.class);
 				intent.putExtra(getActivity().getPackageName() + ".mission",
-						((MissionAdapter) parent.getAdapter())
+						((ListMissionAdapter) parent.getAdapter())
 								.getItem(position));
 				startActivity(intent);
 			}
@@ -46,15 +47,17 @@ public class ListMissionsFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		((MissionAdapter) missionsList.getAdapter()).notifyDataSetChanged();
+		((ListMissionAdapter) missionsList.getAdapter()).notifyDataSetChanged();
 	}
 
-	private class MissionAdapter extends BaseAdapter {
+	abstract ArrayList<Mission> getMissions();
+
+	protected class ListMissionAdapter extends BaseAdapter {
 		Activity activity;
 		ArrayList<Mission> missions;
 		int red, yellow, green;
 
-		public MissionAdapter(Activity activity, ArrayList<Mission> missions) {
+		public ListMissionAdapter(Activity activity, ArrayList<Mission> missions) {
 			this.activity = activity;
 			this.missions = missions;
 			yellow = activity.getResources().getColor(

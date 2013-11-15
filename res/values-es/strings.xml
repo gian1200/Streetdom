@@ -11,6 +11,12 @@
     <string name="share">Compartir</string>
     <string name="achievements">Logros</string>
     <string name="leaderboards">Tablas de clasificación</string>
+    <string name="current_clue">Pista Actual</string>
+    <string name="clue_title">Pista: %1$s</string>
+    <string name="clue">Pista</string>
+    <string name="clues">Pistas</string>
+    <string name="continue_text">Continuar</string>
+    <string name="right_place">Lugar Correcto</string>
     <!-- Sign In -->
     <string name="not_signed_in_greeting">Hola, usuario anónimo!</string>
     <string name="signed_in_greeting">Hola, %1$s!</string>
@@ -24,6 +30,9 @@
     <string name="language">Idioma</string>
     <string name="language_default">Defecto</string>
     <string name="notifications">Notificaciones</string>
+    <string name="data">Datos</string>
+    <string name="erase_data">Borrar datos</string>
+    <string name="erase_data_message">Todo tu progreso será borrado de este dispositivo. Esta acción es irreversible.</string>
     <string name="about">Acerca de</string>
     <string name="license">Licencia</string>
     <string name="us">Nosotros</string>

@@ -1,11 +1,11 @@
 package com.gian1200.games.streetdom;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +38,17 @@ public class MissionActivity extends Activity {
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+		if (!locale.equals(getResources().getConfiguration().locale)) {
+			finish();
+			startActivity(getIntent());
+			overridePendingTransition(0, 0);
+			return;
+		}
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.mission, menu);
@@ -52,17 +63,6 @@ public class MissionActivity extends Activity {
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		if (!locale.equals(getResources().getConfiguration().locale)) {
-			finish();
-			startActivity(getIntent());
-			overridePendingTransition(0, 0);
-			return;
 		}
 	}
 
@@ -81,6 +81,7 @@ public class MissionActivity extends Activity {
 			return;
 		}
 		Intent intent = new Intent(this, MapActivity.class);
+		intent.putExtra(getPackageName() + ".mission", mission);
 		intent.putExtra(getPackageName() + ".places", mission.places);
 		intent.putExtra(getPackageName() + ".currentClue",
 				mission.clues[mission.currentClue]);
@@ -99,46 +100,37 @@ public class MissionActivity extends Activity {
 			}
 			return;
 		case STREETDOM_MISSION:
+			Log.d("onActivityResult", "STREETDOM_MISSION");
 			if (resultCode == RESULT_OK) {
+				Log.d("onActivityResult", "RESULT_OK");
 				if (data != null) {
-					if (!mission.isCompleted) {
-						Bundle extras = data.getExtras();
-						if (getResources().getInteger(
-								R.integer.result_code_right_place) == extras
-								.getInt(getPackageName() + ".resultCode")) {
-							mission.currentClue++;
-							mission.progress = (float) mission.currentClue
-									/ mission.clues.length;
-							mission.isCompleted = mission.clues.length <= mission.currentClue;
-							ArrayList<Mission> missions = ((Application) getApplication()).missions;
-							for (Mission mission : missions) {
-								if (mission.id == this.mission.id) {
-									mission.currentClue = this.mission.currentClue;
-									mission.progress = this.mission.progress;
-									mission.isCompleted = this.mission.isCompleted;
-									if (mission.isCompleted) {
-										((Application) getApplication()).incompletedMissions
-												.remove(mission);
-										if (!((Application) getApplication()).completedMissions
-												.contains(mission)) {
-											((Application) getApplication()).completedMissions
-													.add(mission);
-										}
-									}
-									break;
-								}
-							}
-							((Application) getApplication()).saveData();
+					Log.d("onActivityResult", "data_not_null");
+					Bundle extras = data.getExtras();
+					if (getResources().getInteger(
+							R.integer.result_code_right_place) == extras
+							.getInt(getPackageName() + ".resultCode")) {
+						mission = extras.getParcelable(getPackageName()
+								+ ".mission");
+						if (mission.isCompleted) {
+							finish();
+						} else {
+							// TODO actualizar la descripcion y el color
 						}
+						// Lugar encontrado
+						// pistas
 					}
+				} else {
+					Log.d("onActivityResult", "data_null");
 				}
 			}
 		}
 	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		// mission.progress;
+	public void mostrarPista(View v) {
+		ClueFragment clueFragment = new ClueFragment();
+		Bundle bundle = new Bundle();
+		bundle.putParcelable("clue", mission.getCurrentClue());
+		clueFragment.setArguments(bundle);
+		clueFragment.show(getFragmentManager(), "clue_fragmemt");
 	}
 }
