@@ -265,41 +265,38 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				if (getResources()
-						.getInteger(R.integer.result_code_right_place) == extras
-						.getInt(getPackageName() + ".resultCode")) {
-					// Lugar encontrado
-					mission = extras.getParcelable(getPackageName()
-							+ ".mission");
-					getIntent()
-							.putExtra(getPackageName() + ".mission", mission);
-					places = mission.places;
-					if (mission.isCompleted) {
-						setResult(RESULT_OK, data);
-						finish();
+		// TODO arreglar este metodo
+		// result_code_mission_completed, result_code_right_place, RESULT_OK
+		if (data != null) {
+			Bundle extras = data.getExtras();
+			mission = extras.getParcelable(getPackageName() + ".mission");
+			getIntent().putExtra(getPackageName() + ".mission", mission);
+			places = mission.places;
+
+		}
+		if (mission.isCompleted) {
+			setResult(resultCode, data);
+			finish();
+		} else {
+			for (int i = 0; i < places.length; i++) {
+				if (i < mission.currentClue) {
+					markers[i].setIcon(BitmapDescriptorFactory
+							.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+				} else {
+					if (places[i].visited) {
+						markers[i]
+								.setIcon(BitmapDescriptorFactory
+										.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 					} else {
-						for (int i = 0; i < places.length; i++) {
-							if (i < mission.currentClue) {
-								markers[i]
-										.setIcon(BitmapDescriptorFactory
-												.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-							} else {
-								if (places[i].visited) {
-									markers[i]
-											.setIcon(BitmapDescriptorFactory
-													.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-								} else {
-									// do nothing since it already has the right
-									// color
-								}
-							}
-						}
+						// do nothing since it already has the right
+						// color
 					}
 				}
 			}
+		}
+		if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
+			// Lugar encontrado
+
 		}
 	}
 

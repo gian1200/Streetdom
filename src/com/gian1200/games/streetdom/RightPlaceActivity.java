@@ -35,10 +35,9 @@ public class RightPlaceActivity extends Activity {
 
 	private void keepPlaying() {
 		Intent data = new Intent();
-		data.putExtra(getPackageName() + ".resultCode", getResources()
-				.getInteger(R.integer.result_code_right_place));
 		data.putExtra(getPackageName() + ".mission", mission);
-		setResult(RESULT_OK, data);
+		setResult(getResources().getInteger(R.integer.result_code_right_place),
+				data);
 		finish();
 	}
 }

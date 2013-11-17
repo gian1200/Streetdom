@@ -2,7 +2,15 @@
 <resources>
 
     <integer name="result_code_right_place">20</integer>
-    <!-- <integer name="result_code_wrong_place">404</integer> -->
+    <integer name="result_code_erase_data">666</integer>
+    <integer name="result_code_mission_completed">33387</integer>
+    
+    
+    <integer name="request_code_settings_activity">33387</integer>
+    <integer name="request_code_map_activity">33387</integer>
+    <integer name="request_code_place_activity">33387</integer>
+    <integer name="request_code_right_place">33387</integer>
+    
     <integer name="radius_range">50</integer>
 
 </resources>

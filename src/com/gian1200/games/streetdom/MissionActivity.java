@@ -101,27 +101,19 @@ public class MissionActivity extends Activity {
 			return;
 		case STREETDOM_MISSION:
 			Log.d("onActivityResult", "STREETDOM_MISSION");
-			if (resultCode == RESULT_OK) {
-				Log.d("onActivityResult", "RESULT_OK");
-				if (data != null) {
-					Log.d("onActivityResult", "data_not_null");
-					Bundle extras = data.getExtras();
-					if (getResources().getInteger(
-							R.integer.result_code_right_place) == extras
-							.getInt(getPackageName() + ".resultCode")) {
-						mission = extras.getParcelable(getPackageName()
-								+ ".mission");
-						if (mission.isCompleted) {
-							finish();
-						} else {
-							// TODO actualizar la descripcion y el color
-						}
-						// Lugar encontrado
-						// pistas
-					}
+			if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
+				Log.d("onActivityResult", "result_code_right_place");
+				Bundle extras = data.getExtras();
+				mission = extras.getParcelable(getPackageName() + ".mission");
+				if (mission.isCompleted) {
+					finish();
 				} else {
-					Log.d("onActivityResult", "data_null");
+					// TODO actualizar la descripcion y su color
 				}
+				// Lugar encontrado
+				// pistas
+			} else {
+				Log.d("onActivityResult", "not result_code_right_place?");
 			}
 		}
 	}

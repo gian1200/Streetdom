@@ -85,6 +85,12 @@ public class PlaceActivity extends Activity {
 				} else {
 					Toast.makeText(this, "Last clue. you did it",
 							Toast.LENGTH_SHORT).show();
+					Intent data = new Intent();
+					data.putExtra(getPackageName() + ".mission", mission);
+					setResult(
+							getResources().getInteger(
+									R.integer.result_code_mission_completed),
+							data);
 					// TODO go to winning mission screen
 					finish();
 				}
@@ -102,24 +108,15 @@ public class PlaceActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				if (getResources()
-						.getInteger(R.integer.result_code_right_place) == extras
-						.getInt(getPackageName() + ".resultCode")) {
-					setResult(RESULT_OK, data);
-					finish();
-				}
-			}
+		if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
+			setResult(resultCode, data);
+			finish();
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
 		Intent data = new Intent();
-		data.putExtra(getPackageName() + ".resultCode", getResources()
-				.getInteger(R.integer.result_code_right_place));
 		data.putExtra(getPackageName() + ".mission", mission);
 		setResult(RESULT_OK, data);
 		finish();
