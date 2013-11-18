@@ -42,7 +42,10 @@ public class MissionsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
-			startActivity(new Intent(this, SettingsActivity.class));
+			startActivityForResult(
+					new Intent(this, SettingsActivity.class),
+					getResources().getInteger(
+							R.integer.request_code_settings_activity));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -57,6 +60,15 @@ public class MissionsActivity extends Activity {
 			startActivity(getIntent());
 			overridePendingTransition(0, 0);
 			return;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
+			setResult(resultCode);
+			finish();
 		}
 	}
 

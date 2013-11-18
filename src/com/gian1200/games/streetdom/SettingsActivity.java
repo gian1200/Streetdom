@@ -118,6 +118,10 @@ public class SettingsActivity extends PreferenceActivity {
 											int which) {
 										((Application) getApplication())
 												.eraseData();
+										setResult(getResources()
+												.getInteger(
+														R.integer.result_code_erase_data));
+										finish();
 										// TODO onResultActivity to close all
 										// activities onReturn and send back to
 										// MainActivity

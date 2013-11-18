@@ -149,7 +149,10 @@ public class MapActivity extends Activity {
 						intent.putExtra(getPackageName() + ".currentLocation",
 								map.getMyLocation());
 						intent.putExtra(getPackageName() + ".place", places[i]);
-						startActivityForResult(intent, 0);
+						startActivityForResult(
+								intent,
+								getResources().getInteger(
+										R.integer.request_code_place_activity));
 					}
 				}
 			}
@@ -265,39 +268,45 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		// TODO arreglar este metodo
-		// result_code_mission_completed, result_code_right_place, RESULT_OK
-		if (data != null) {
+		if (getResources().getInteger(R.integer.request_code_place_activity) == requestCode) {
 			Bundle extras = data.getExtras();
 			mission = extras.getParcelable(getPackageName() + ".mission");
 			getIntent().putExtra(getPackageName() + ".mission", mission);
 			places = mission.places;
-
+			if (mission.isCompleted) {
+				setResult(resultCode, data);// result_code_mission_completed
+				finish();
+			} else {
+				// - Lugar encontrado result_code_right_place
+				// - back pressed, lugar verificado o no
+				updateMarkersColor();
+			}
 		}
-		if (mission.isCompleted) {
-			setResult(resultCode, data);
-			finish();
-		} else {
-			for (int i = 0; i < places.length; i++) {
-				if (i < mission.currentClue) {
+	}
+
+	void updateMarkersColor() {
+		for (int i = 0; i < places.length; i++) {
+			if (i < mission.currentClue) {
+				markers[i].setIcon(BitmapDescriptorFactory
+						.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+			} else {
+				if (places[i].visited) {
 					markers[i].setIcon(BitmapDescriptorFactory
-							.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+							.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 				} else {
-					if (places[i].visited) {
-						markers[i]
-								.setIcon(BitmapDescriptorFactory
-										.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-					} else {
-						// do nothing since it already has the right
-						// color
-					}
+					// do nothing since it already has the right
+					// color HUE_RED (Default)
 				}
 			}
 		}
-		if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
-			// Lugar encontrado
+	}
 
-		}
+	@Override
+	public void onBackPressed() {
+		Intent data = new Intent();
+		data.putExtra(getPackageName() + ".mission", mission);
+		setResult(RESULT_OK, data);
+		finish();
 	}
 
 }

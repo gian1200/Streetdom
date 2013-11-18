@@ -26,12 +26,7 @@ public class MainActivity extends Activity implements GameHelperListener {
 	private LinearLayout signInBar, signedInBar;
 	private TextView greeting;
 	private Button signOutButton;
-	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 84395;
-	private static final int REQUEST_ACHIEVEMENTS = 23425;
-	private static final int REQUEST_LEADERBOARDS = 24423;
-
 	private Locale locale;
-
 	private GameHelper mHelper;
 
 	@Override
@@ -69,8 +64,11 @@ public class MainActivity extends Activity implements GameHelperListener {
 		case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
 		case ConnectionResult.SERVICE_DISABLED:
 		case ConnectionResult.SERVICE_INVALID:
-			GooglePlayServicesUtil.getErrorDialog(errorCode, this,
-					PLAY_SERVICES_RESOLUTION_REQUEST).show();
+			GooglePlayServicesUtil.getErrorDialog(
+					errorCode,
+					this,
+					getResources().getInteger(
+							R.integer.request_code_play_services)).show();
 			break;
 		}
 	}
@@ -85,19 +83,22 @@ public class MainActivity extends Activity implements GameHelperListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		mHelper.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case PLAY_SERVICES_RESOLUTION_REQUEST:
-			if (resultCode == RESULT_CANCELED) {
+		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
+
+		} else if (getResources().getInteger(
+				R.integer.request_code_play_services) == requestCode) {
+			if (resultCode != RESULT_OK) {
 				Toast.makeText(this,
 						R.string.common_google_play_services_update_text,
 						Toast.LENGTH_LONG).show();
 			}
-			return;
-
+		} else if (getResources().getInteger(
+				R.integer.request_code_achievements) == requestCode) {
+		} else if (getResources().getInteger(
+				R.integer.request_code_leaderboards) == requestCode) {
+		} else {
+			Log.i("onActivityResult", "OTRO_requestCode");
 		}
-
-		Log.i("onActivityResult", "OTRO_requestCode");
-		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -112,7 +113,10 @@ public class MainActivity extends Activity implements GameHelperListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
-			startActivity(new Intent(this, SettingsActivity.class));
+			startActivityForResult(
+					new Intent(this, SettingsActivity.class),
+					getResources().getInteger(
+							R.integer.request_code_settings_activity));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -163,13 +167,13 @@ public class MainActivity extends Activity implements GameHelperListener {
 	public void showAchievements(View v) {
 		startActivityForResult(
 				mHelper.getGamesClient().getAchievementsIntent(),
-				REQUEST_ACHIEVEMENTS);
+				getResources().getInteger(R.integer.request_code_achievements));
 	}
 
 	public void showLeaderboard(View v) {
-
 		startActivityForResult(mHelper.getGamesClient()
-				.getAllLeaderboardsIntent(), REQUEST_LEADERBOARDS);
+				.getAllLeaderboardsIntent(),
+				getResources().getInteger(R.integer.request_code_leaderboards));
 	}
 
 	void updateUI() {
@@ -177,12 +181,10 @@ public class MainActivity extends Activity implements GameHelperListener {
 			signInBar.setVisibility(View.GONE);
 			signedInBar.setVisibility(View.VISIBLE);
 			signOutButton.setVisibility(View.VISIBLE);
-
 			// greeting.setText(getString(R.string.signed_in_greeting, mHelper
 			// .getPlusClient().getCurrentPerson().getName()
 			// .getGivenName()));
 			Log.i("", mHelper.getGamesClient().getCurrentPlayer().toString());
-
 			greeting.setText(getString(R.string.signed_in_greeting, mHelper
 					.getGamesClient().getCurrentPlayer().getDisplayName()));
 		} else {
@@ -197,7 +199,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 	public void onSignInFailed() {
 		Log.i("onSignInFailed", "nonono");
 		updateUI();
-
 	}
 
 	@Override

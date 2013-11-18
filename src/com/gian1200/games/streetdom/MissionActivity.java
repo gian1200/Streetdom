@@ -5,7 +5,6 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +18,6 @@ public class MissionActivity extends Activity {
 
 	TextView title, description;
 	Mission mission;
-	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-	private static final int STREETDOM_MISSION = 3333;
 	private Locale locale;
 
 	@Override
@@ -76,45 +73,35 @@ public class MissionActivity extends Activity {
 		case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
 		case ConnectionResult.SERVICE_DISABLED:
 		case ConnectionResult.SERVICE_INVALID:
-			GooglePlayServicesUtil.getErrorDialog(errorCode, this,
-					PLAY_SERVICES_RESOLUTION_REQUEST).show();
+			GooglePlayServicesUtil.getErrorDialog(
+					errorCode,
+					this,
+					getResources().getInteger(
+							R.integer.request_code_play_services)).show();
 			return;
 		}
 		Intent intent = new Intent(this, MapActivity.class);
 		intent.putExtra(getPackageName() + ".mission", mission);
-		intent.putExtra(getPackageName() + ".places", mission.places);
-		intent.putExtra(getPackageName() + ".currentClue",
-				mission.clues[mission.currentClue]);
-		startActivityForResult(intent, STREETDOM_MISSION);
+		startActivityForResult(intent,
+				getResources().getInteger(R.integer.request_code_map_activity));
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case PLAY_SERVICES_RESOLUTION_REQUEST:
+		if (getResources().getInteger(R.integer.request_code_play_services) == requestCode) {
 			if (resultCode != RESULT_OK) {
 				Toast.makeText(this,
 						R.string.common_google_play_services_update_text,
 						Toast.LENGTH_LONG).show();
 			}
 			return;
-		case STREETDOM_MISSION:
-			Log.d("onActivityResult", "STREETDOM_MISSION");
-			if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
-				Log.d("onActivityResult", "result_code_right_place");
-				Bundle extras = data.getExtras();
-				mission = extras.getParcelable(getPackageName() + ".mission");
-				if (mission.isCompleted) {
-					finish();
-				} else {
-					// TODO actualizar la descripcion y su color
-				}
-				// Lugar encontrado
-				// pistas
-			} else {
-				Log.d("onActivityResult", "not result_code_right_place?");
-			}
+		} else if (getResources().getInteger(
+				R.integer.request_code_map_activity) == requestCode) {
+			// backedPressed o mission completed
+			Bundle extras = data.getExtras();
+			mission = extras.getParcelable(getPackageName() + ".mission");
+			// TODO actualizar la descripcion y su color
 		}
 	}
 

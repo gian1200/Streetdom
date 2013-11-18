@@ -81,7 +81,10 @@ public class PlaceActivity extends Activity {
 				if (mission.hasClues()) {
 					Intent intent = new Intent(this, RightPlaceActivity.class);
 					intent.putExtra(getPackageName() + ".mission", mission);
-					startActivityForResult(intent, 0);
+					startActivityForResult(
+							intent,
+							getResources().getInteger(
+									R.integer.request_code_right_place));
 				} else {
 					Toast.makeText(this, "Last clue. you did it",
 							Toast.LENGTH_SHORT).show();
@@ -108,9 +111,11 @@ public class PlaceActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
-			setResult(resultCode, data);
-			finish();
+		if (getResources().getInteger(R.integer.request_code_right_place) == requestCode) {
+			if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
+				setResult(resultCode, data);
+				finish();
+			}
 		}
 	}
 
