@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gian1200.games.streetdom"
     android:installLocation="auto"
-    android:versionCode="6"
-    android:versionName="0.0.6" >
+    android:versionCode="7"
+    android:versionName="0.0.7" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -50,10 +50,6 @@
         <activity
             android:name="com.gian1200.games.streetdom.MissionActivity"
             android:label="@string/title_activity_mission" >
-        </activity>
-        <activity
-            android:name="com.gian1200.games.streetdom.ClueActivity"
-            android:label="@string/title_activity_clue" >
         </activity>
         <activity
             android:name="com.gian1200.games.streetdom.MapActivity"

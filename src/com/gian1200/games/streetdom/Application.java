@@ -80,7 +80,7 @@ public class Application extends ApplicationUtil {
 				Configuration config = new Configuration();
 				config.locale = languages[languageIndex];
 				getResources().updateConfiguration(config, null);
-				Log.i("", "se ha cambiado");
+				Log.d("", "se ha cambiado");
 				return true;
 			}
 		}

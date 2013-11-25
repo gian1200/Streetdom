@@ -17,8 +17,6 @@ public class ClueFragment extends DialogFragment {
 		clue = getArguments().getParcelable("clue");
 		dialogBuilder.setTitle(getString(R.string.clue_title, clue.name));
 		dialogBuilder.setMessage(clue.text);
-		// dialogBuilder.setView(getActivity().getLayoutInflater().inflate(
-		// R.layout.fragment_clue, null));
 		dialogBuilder.setPositiveButton(android.R.string.ok,
 				new DialogInterface.OnClickListener() {
 

@@ -36,7 +36,7 @@ public class SettingsActivity extends PreferenceActivity {
 			prepareLanguagePreference((ListPreference) findPreference("language"));
 			prepareEraseData(findPreference("erase_data"));
 			prepareVersion(findPreference("versionname"));
-			// Log.i("", GooglePlayServicesUtil
+			// Log.d("", GooglePlayServicesUtil
 			// .getOpenSourceSoftwareLicenseInfo(this));
 		}
 	}

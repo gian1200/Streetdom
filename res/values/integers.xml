@@ -4,6 +4,7 @@
     <integer name="result_code_right_place">20</integer>
     <integer name="result_code_erase_data">666</integer>
     <integer name="result_code_mission_completed">33387</integer>
+    <integer name="result_code_connection_failure">9999</integer>
     <integer name="request_code_play_services">9000</integer>
     <integer name="request_code_achievements">4000</integer>
     <integer name="request_code_leaderboards">4001</integer>
@@ -11,6 +12,6 @@
     <integer name="request_code_map_activity">55001</integer>
     <integer name="request_code_place_activity">55002</integer>
     <integer name="request_code_right_place">55003</integer>
-    <integer name="radius_range">50</integer>
+    <integer name="radius_range">100</integer>
 
 </resources>

@@ -12,11 +12,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class PlaceActivity extends Activity {
 	Mission mission;
 	Place place;
 	TextView title, description;
-	Location currentLocation;
+	// Location currentLocation;
+	LatLng currentLocation;
 	private Locale locale;
 
 	@Override
@@ -26,7 +29,9 @@ public class PlaceActivity extends Activity {
 		locale = getResources().getConfiguration().locale;
 		setContentView(R.layout.activity_place);
 		Bundle extras = getIntent().getExtras();
-		currentLocation = (Location) extras.getParcelable(getPackageName()
+		// currentLocation = (Location) extras.getParcelable(getPackageName()
+		// + ".currentLocation");
+		currentLocation = (LatLng) extras.getParcelable(getPackageName()
 				+ ".currentLocation");
 		mission = extras.getParcelable(getPackageName() + ".mission");
 		place = extras.getParcelable(getPackageName() + ".place");
@@ -67,9 +72,12 @@ public class PlaceActivity extends Activity {
 
 	public void checkPlace(View v) {
 		float[] results = new float[1];
-		Location.distanceBetween(currentLocation.getLatitude(),
-				currentLocation.getLongitude(), place.latitude,
-				place.longitude, results);
+		// Location.distanceBetween(currentLocation.getLatitude(),
+		// currentLocation.getLongitude(), place.latitude,
+		// place.longitude, results);
+		Location.distanceBetween(currentLocation.latitude,
+				currentLocation.longitude, place.latitude, place.longitude,
+				results);
 		if (results[0] <= 50) {
 			place.visited = true;
 			mission.getPlace(place.id).visit();

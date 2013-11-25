@@ -4,6 +4,8 @@
     <string name="app_name">Streetdom</string>
     <string name="place_check">Revisar Lugar</string>
     <string name="mission_open_map">Abrir Map</string>
+    <string name="map">Mapa</string>
+    <string name="mission">Misión</string>
     <string name="missions">Misiones</string>
     <string name="completed_missions">Misiones Completas</string>
     <string name="incompleted_missions">Misiones Imcompletas</string>
@@ -16,6 +18,7 @@
     <string name="clue">Pista</string>
     <string name="clues">Pistas</string>
     <string name="continue_text">Continuar</string>
+    <string name="place">Lugar</string>
     <string name="right_place">Lugar Correcto</string>
     <!-- Sign In -->
     <string name="not_signed_in_greeting">Hola, usuario anónimo!</string>

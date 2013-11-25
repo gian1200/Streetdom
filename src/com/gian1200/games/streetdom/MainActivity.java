@@ -39,7 +39,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 		signedInBar = (LinearLayout) findViewById(R.id.main_signed_in_bar);
 		greeting = (TextView) findViewById(R.id.main_greeting);
 		signOutButton = (Button) findViewById(R.id.main_sign_out);
-
 		mHelper = new GameHelper(this);
 		mHelper.enableDebugLog(true, "sdkfj");
 		mHelper.setup(this, GameHelper.CLIENT_GAMES);
@@ -97,7 +96,7 @@ public class MainActivity extends Activity implements GameHelperListener {
 		} else if (getResources().getInteger(
 				R.integer.request_code_leaderboards) == requestCode) {
 		} else {
-			Log.i("onActivityResult", "OTRO_requestCode");
+			Log.d("onActivityResult", "OTRO_requestCode");
 		}
 	}
 
@@ -132,21 +131,21 @@ public class MainActivity extends Activity implements GameHelperListener {
 		mHelper.beginUserInitiatedSignIn();
 		// if (!mPlusClient.isConnected()) {
 		// if (mConnectionResult == null) {
-		// Log.i("singInGoogle", "mConnectionProgressDialog.show");
+		// Log.d("singInGoogle", "mConnectionProgressDialog.show");
 		// mConnectionProgressDialog.show();
 		// } else {
-		// Log.i("singInGoogle",
+		// Log.d("singInGoogle",
 		// "mConnectionResult.startResolutionForResult.show");
 		// try {
 		// mConnectionResult.startResolutionForResult(this,
 		// REQUEST_CODE_RESOLVE_ERR);
 		// } catch (SendIntentException e) {
-		// Log.i("singInGoogle", "SendIntentException");
+		// Log.d("singInGoogle", "SendIntentException");
 		// // Try connecting again.
 		// mConnectionResult = null;
 		// mPlusClient.connect();
 		// }
-		// Log.i("singInGoogle", "Done");
+		// Log.d("singInGoogle", "Done");
 		// }
 		// }
 		updateUI();
@@ -184,7 +183,7 @@ public class MainActivity extends Activity implements GameHelperListener {
 			// greeting.setText(getString(R.string.signed_in_greeting, mHelper
 			// .getPlusClient().getCurrentPerson().getName()
 			// .getGivenName()));
-			Log.i("", mHelper.getGamesClient().getCurrentPlayer().toString());
+			Log.d("", mHelper.getGamesClient().getCurrentPlayer().toString());
 			greeting.setText(getString(R.string.signed_in_greeting, mHelper
 					.getGamesClient().getCurrentPlayer().getDisplayName()));
 		} else {
@@ -197,13 +196,13 @@ public class MainActivity extends Activity implements GameHelperListener {
 
 	@Override
 	public void onSignInFailed() {
-		Log.i("onSignInFailed", "nonono");
+		Log.d("onSignInFailed", "nonono");
 		updateUI();
 	}
 
 	@Override
 	public void onSignInSucceeded() {
-		Log.i("onSignInSucceeded", "sisisisis");
+		Log.d("onSignInSucceeded", "sisisisis");
 		updateUI();
 	}
 

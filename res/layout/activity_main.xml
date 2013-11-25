@@ -45,7 +45,7 @@
         android:background="@color/main_sign_in_background"
         android:gravity="center"
         android:padding="10dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/main_sign_in"
@@ -76,20 +76,22 @@
         android:baselineAligned="false"
         android:gravity="center"
         android:padding="10dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
-            <Button
+            <ImageView
                 android:id="@+id/main_achievements"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:contentDescription="@string/achievements"
                 android:gravity="center"
                 android:onClick="showAchievements"
+                android:src="@drawable/main_achievements_background"
                 android:text="@string/achievements" />
         </FrameLayout>
 
@@ -98,13 +100,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
-            <Button
+            <ImageView
                 android:id="@+id/main_leaderboards"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:contentDescription="@string/leaderboards"
                 android:gravity="center"
                 android:onClick="showLeaderboard"
+                android:src="@drawable/main_leaderboards_background"
                 android:text="@string/leaderboards" />
         </FrameLayout>
     </LinearLayout>
