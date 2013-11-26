@@ -12,6 +12,9 @@
 
 # Add any project specific keep options here:
 
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile, LineNumberTable
+
 #Google Play Services
 -keep class * extends java.util.ListResourceBundle {
     protected Object[][] getContents();

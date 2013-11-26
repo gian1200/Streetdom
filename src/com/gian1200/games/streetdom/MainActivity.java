@@ -40,7 +40,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 		greeting = (TextView) findViewById(R.id.main_greeting);
 		signOutButton = (Button) findViewById(R.id.main_sign_out);
 		mHelper = new GameHelper(this);
-		mHelper.enableDebugLog(true, "sdkfj");
 		mHelper.setup(this, GameHelper.CLIENT_GAMES);
 	}
 
@@ -183,7 +182,8 @@ public class MainActivity extends Activity implements GameHelperListener {
 			// greeting.setText(getString(R.string.signed_in_greeting, mHelper
 			// .getPlusClient().getCurrentPerson().getName()
 			// .getGivenName()));
-			Log.d("", mHelper.getGamesClient().getCurrentPlayer().toString());
+			Log.d("CurrentPlayer", mHelper.getGamesClient().getCurrentPlayer()
+					.toString());
 			greeting.setText(getString(R.string.signed_in_greeting, mHelper
 					.getGamesClient().getCurrentPlayer().getDisplayName()));
 		} else {
@@ -196,7 +196,7 @@ public class MainActivity extends Activity implements GameHelperListener {
 
 	@Override
 	public void onSignInFailed() {
-		Log.d("onSignInFailed", "nonono");
+		Log.d("onSignInFailed", "nononono");
 		updateUI();
 	}
 

@@ -287,7 +287,6 @@ public class MapActivity extends Activity {
 				Toast.makeText(MapActivity.this, "Connected",
 						Toast.LENGTH_SHORT).show();
 				Location lastLocation = locationClient.getLastLocation();
-
 				if (currentLocation == null) {
 					LatLng position = new LatLng(lastLocation.getLatitude(),
 							lastLocation.getLongitude());
