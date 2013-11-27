@@ -302,7 +302,7 @@ public class MapActivity extends Activity {
 					loadCurrentPosition(new LatLng(lastLocation.getLatitude(),
 							lastLocation.getLongitude()));
 				}
-				locationClient.requestLocationUpdates(new LocationRequest(),
+				locationClient.requestLocationUpdates(LocationRequest.create(),
 						new LocationListener() {
 
 							@Override
