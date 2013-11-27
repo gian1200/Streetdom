@@ -222,6 +222,17 @@ public class MapActivity extends Activity {
 		}
 	}
 
+	void loadCurrentPosition(LatLng position) {
+		MarkerOptions markerOption = new MarkerOptions()
+				.position(position)
+				.anchor(0.5f, 0.5f)
+				.icon(BitmapDescriptorFactory
+						.fromResource(R.drawable.map_current_position));
+		currentLocation = map.addMarker(markerOption);
+		loadCircle(position);
+		moveCameraToFitAllMarkers(true);
+	}
+
 	void loadCircle(LatLng center) {
 		if (circle == null) {
 			circle = map.addCircle(new CircleOptions().center(center).radius(0)
@@ -287,25 +298,22 @@ public class MapActivity extends Activity {
 				Toast.makeText(MapActivity.this, "Connected",
 						Toast.LENGTH_SHORT).show();
 				Location lastLocation = locationClient.getLastLocation();
-				if (currentLocation == null) {
-					LatLng position = new LatLng(lastLocation.getLatitude(),
-							lastLocation.getLongitude());
-					MarkerOptions markerOption = new MarkerOptions()
-							.position(position)
-							.anchor(0.5f, 0.5f)
-							.icon(BitmapDescriptorFactory
-									.fromResource(R.drawable.map_current_position));
-					currentLocation = map.addMarker(markerOption);
-					loadCircle(position);
-					moveCameraToFitAllMarkers(true);
+				if (lastLocation != null && currentLocation == null) {
+					loadCurrentPosition(new LatLng(lastLocation.getLatitude(),
+							lastLocation.getLongitude()));
 				}
 				locationClient.requestLocationUpdates(new LocationRequest(),
 						new LocationListener() {
 
 							@Override
 							public void onLocationChanged(Location location) {
-								currentLocation.setPosition(new LatLng(location
-										.getLatitude(), location.getLongitude()));
+								LatLng position = new LatLng(location
+										.getLatitude(), location.getLongitude());
+								if (currentLocation == null) {
+									loadCurrentPosition(position);
+								} else {
+									currentLocation.setPosition(position);
+								}
 							}
 						});
 			}
