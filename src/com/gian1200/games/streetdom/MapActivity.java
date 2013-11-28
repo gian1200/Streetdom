@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
 
 import com.gian1200.util.ColorUtil;
 import com.google.android.gms.common.ConnectionResult;
@@ -38,7 +37,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapActivity extends Activity {
+public class MapActivity extends Activity implements LocationListener {
 	private Mission mission;
 	private Place[] places;
 	private Marker[] markers;
@@ -105,11 +104,9 @@ public class MapActivity extends Activity {
 	}
 
 	@Override
-	protected void onPause() {
-		if (circleAnimator != null && circleAnimator.isRunning()) {// isStarted()
-			circleAnimator.cancel();
-		}
-		super.onPause();
+	protected void onStart() {
+		super.onStart();
+		locationClient.connect();
 	}
 
 	@Override
@@ -118,6 +115,23 @@ public class MapActivity extends Activity {
 		if (circleAnimator != null && !circleAnimator.isRunning()) {
 			circleAnimator.start();
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		if (circleAnimator != null && circleAnimator.isRunning()) {// isStarted()
+			circleAnimator.cancel();
+		}
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		if (locationClient.isConnected()) {
+			locationClient.removeLocationUpdates(this);
+		}
+		locationClient.disconnect();
+		super.onStop();
 	}
 
 	@Override
@@ -137,6 +151,26 @@ public class MapActivity extends Activity {
 				updateMarkersColor();
 			}
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		LatLng position = new LatLng(location.getLatitude(),
+				location.getLongitude());
+		if (currentLocation == null) {
+			loadCurrentPosition(position);
+		} else {
+			currentLocation.setPosition(position);
+		}
+
+	}
+
+	@Override
+	public void onBackPressed() {
+		Intent data = new Intent();
+		data.putExtra(getPackageName() + ".mission", mission);
+		setResult(RESULT_OK, data);
+		finish();
 	}
 
 	void loadPlacesMarkers() {
@@ -286,36 +320,18 @@ public class MapActivity extends Activity {
 
 			@Override
 			public void onDisconnected() {
-				// Display the connection status
-				Toast.makeText(MapActivity.this,
-						"Disconnected. Please re-connect.", Toast.LENGTH_SHORT)
-						.show();
 			}
 
 			@Override
 			public void onConnected(Bundle connectionHint) {
-				// Display the connection status
-				Toast.makeText(MapActivity.this, "Connected",
-						Toast.LENGTH_SHORT).show();
 				Location lastLocation = locationClient.getLastLocation();
 				if (lastLocation != null && currentLocation == null) {
 					loadCurrentPosition(new LatLng(lastLocation.getLatitude(),
 							lastLocation.getLongitude()));
 				}
 				locationClient.requestLocationUpdates(LocationRequest.create(),
-						new LocationListener() {
+						MapActivity.this);
 
-							@Override
-							public void onLocationChanged(Location location) {
-								LatLng position = new LatLng(location
-										.getLatitude(), location.getLongitude());
-								if (currentLocation == null) {
-									loadCurrentPosition(position);
-								} else {
-									currentLocation.setPosition(position);
-								}
-							}
-						});
 			}
 		}, new OnConnectionFailedListener() {
 
@@ -360,7 +376,6 @@ public class MapActivity extends Activity {
 
 			}
 		});
-		locationClient.connect();
 	}
 
 	void updateMarkersColor() {
@@ -378,14 +393,6 @@ public class MapActivity extends Activity {
 				}
 			}
 		}
-	}
-
-	@Override
-	public void onBackPressed() {
-		Intent data = new Intent();
-		data.putExtra(getPackageName() + ".mission", mission);
-		setResult(RESULT_OK, data);
-		finish();
 	}
 
 }
