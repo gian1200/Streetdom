@@ -20,6 +20,7 @@
     <string name="continue_text">Continuar</string>
     <string name="place">Lugar</string>
     <string name="right_place">Lugar Correcto</string>
+    <string name="focus_places">Enfocar Lugares</string>
     <!-- Sign In -->
     <string name="not_signed_in_greeting">Hola, usuario anónimo!</string>
     <string name="signed_in_greeting">Hola, %1$s!</string>

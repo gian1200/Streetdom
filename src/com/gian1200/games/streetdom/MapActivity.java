@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.DecelerateInterpolator;
 
@@ -50,10 +51,13 @@ public class MapActivity extends Activity implements LocationListener {
 	private MapFragment mapFragment;
 	private GoogleMap map;
 
+	private boolean mapHasLoaded;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
+		mapHasLoaded = false;
 		mapFragment = ((MapFragment) getFragmentManager().findFragmentById(
 				R.id.map));
 		map = mapFragment.getMap();
@@ -62,7 +66,7 @@ public class MapActivity extends Activity implements LocationListener {
 		places = mission.places;
 		markers = new Marker[places.length];
 		loadPlacesMarkers();
-		moveCameraToFitAllMarkers(false);
+		moveCameraToFitAllMarkersWhenReady(false);
 		loadLocationUpdater();
 		// map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
 		// -12.07250575708222, -76.9514923542738), 16));
@@ -97,6 +101,9 @@ public class MapActivity extends Activity implements LocationListener {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
 			startActivity(new Intent(this, SettingsActivity.class));
+			return true;
+		case R.id.action_focus_places:
+			focusPlaces(true);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -221,38 +228,39 @@ public class MapActivity extends Activity implements LocationListener {
 		});
 	}
 
-	void moveCameraToFitAllMarkers(final boolean animateCamera) {
-		final View mapView = mapFragment.getView();
-		if (mapView == null) {
-			return;
-		}
-		mapView.getViewTreeObserver();
-		if (mapView.getViewTreeObserver().isAlive()) {
-			mapView.getViewTreeObserver().addOnGlobalLayoutListener(
-					new OnGlobalLayoutListener() {
+	void moveCameraToFitAllMarkersWhenReady(final boolean animateCamera) {
+		ViewTreeObserver viewTreeObserver = mapFragment.getView()
+				.getViewTreeObserver();
+		if (viewTreeObserver.isAlive()) {
+			viewTreeObserver
+					.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
 						@Override
 						public void onGlobalLayout() {
-							LatLngBounds.Builder builder = new LatLngBounds.Builder();
-							for (Marker marker : markers) {
-								builder.include(marker.getPosition());
-							}
-							if (currentLocation != null) {
-								builder.include(currentLocation.getPosition());
-							}
-							LatLngBounds bounds = builder.build();
-							int paddingInPixels = Math.min(mapView.getWidth(),
-									mapView.getHeight());
-							CameraUpdate newLatLngBounds = CameraUpdateFactory
-									.newLatLngBounds(bounds,
-											paddingInPixels / 4);
-							if (animateCamera) {
-								map.animateCamera(newLatLngBounds);
-							} else {
-								map.moveCamera(newLatLngBounds);
-							}
+							mapHasLoaded = true;
+							focusPlaces(animateCamera);
 						}
 					});
+		}
+	}
+
+	void focusPlaces(boolean animateCamera) {
+		View mapView = mapFragment.getView();
+		LatLngBounds.Builder builder = new LatLngBounds.Builder();
+		for (Marker marker : markers) {
+			builder.include(marker.getPosition());
+		}
+		if (currentLocation != null) {
+			builder.include(currentLocation.getPosition());
+		}
+		LatLngBounds bounds = builder.build();
+		int paddingInPixels = Math.min(mapView.getWidth(), mapView.getHeight());
+		CameraUpdate newLatLngBounds = CameraUpdateFactory.newLatLngBounds(
+				bounds, paddingInPixels / 4);
+		if (animateCamera) {
+			map.animateCamera(newLatLngBounds);
+		} else {
+			map.moveCamera(newLatLngBounds);
 		}
 	}
 
@@ -264,7 +272,9 @@ public class MapActivity extends Activity implements LocationListener {
 						.fromResource(R.drawable.map_current_position));
 		currentLocation = map.addMarker(markerOption);
 		loadCircle(position);
-		moveCameraToFitAllMarkers(true);
+		if (mapHasLoaded) {
+			focusPlaces(true);
+		}
 	}
 
 	void loadCircle(LatLng center) {

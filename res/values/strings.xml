@@ -25,6 +25,7 @@
     <string name="continue_text">Continue</string>
     <string name="place">Place</string>
     <string name="right_place">Right Place</string>
+    <string name="focus_places">Focus Places</string>
     <!-- Sign In -->
     <string name="not_signed_in_greeting">Hello, anonymous user!</string>
     <string name="signed_in_greeting">Hello, %1$s!</string>
@@ -35,6 +36,7 @@
     <!-- Actions -->
     <string name="action_settings" translatable="false">@string/settings</string>
     <string name="action_clues" translatable="false">@string/clues</string>
+    <string name="action_focus_places" translatable="false">@string/focus_places</string>
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="general">General</string>

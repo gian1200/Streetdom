@@ -45,7 +45,7 @@
         android:background="@color/main_sign_in_background"
         android:gravity="center"
         android:padding="10dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <Button
             android:id="@+id/main_sign_in"
@@ -76,7 +76,7 @@
         android:baselineAligned="false"
         android:gravity="center"
         android:padding="10dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <FrameLayout
             android:layout_width="0dp"
