@@ -26,6 +26,7 @@
     <string name="signed_in_greeting">Hola, %1$s!</string>
     <string name="signing_in">Iniciando sesión…</string>
     <string name="sign_in_why">Inicia sesión con Google para compartir tu puntaje y logros con tus amigos.</string>
+    <string name="sign_in">Iniciar Sesión</string>
     <string name="sign_out">Cerrar sesión</string>
     <!-- Google Play -->
     <!-- Settings -->

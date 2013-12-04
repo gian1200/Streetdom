@@ -31,10 +31,12 @@
     <string name="signed_in_greeting">Hello, %1$s!</string>
     <string name="signing_in">Signing in…</string>
     <string name="sign_in_why">Sign in with Google to share your scores and achievements with your friends.</string>
+    <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
     <!-- Google Play -->
     <!-- Actions -->
     <string name="action_settings" translatable="false">@string/settings</string>
+    <string name="action_sign_in_out" translatable="false">@string/sign_in</string>
     <string name="action_clues" translatable="false">@string/clues</string>
     <string name="action_focus_places" translatable="false">@string/focus_places</string>
     <!-- Settings -->

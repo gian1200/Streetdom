@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 	ShareActionProvider mShareActionProvider;
 	private LinearLayout signInBar, signedInBar;
 	private TextView greeting;
-	private Button signOutButton;
 	private Locale locale;
 	private GameHelper mHelper;
 
@@ -38,7 +36,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 		signInBar = (LinearLayout) findViewById(R.id.main_sign_in_bar);
 		signedInBar = (LinearLayout) findViewById(R.id.main_signed_in_bar);
 		greeting = (TextView) findViewById(R.id.main_greeting);
-		signOutButton = (Button) findViewById(R.id.main_sign_out);
 		mHelper = new GameHelper(this);
 		mHelper.setup(this, GameHelper.CLIENT_GAMES);
 	}
@@ -108,6 +105,17 @@ public class MainActivity extends Activity implements GameHelperListener {
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem signInOut = menu.findItem(R.id.action_sign_in_out);
+		if (mHelper.isSignedIn()) {
+			signInOut.setTitle(R.string.sign_out);
+		} else {
+			signInOut.setTitle(R.string.sign_in);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
@@ -115,6 +123,13 @@ public class MainActivity extends Activity implements GameHelperListener {
 					new Intent(this, SettingsActivity.class),
 					getResources().getInteger(
 							R.integer.request_code_settings_activity));
+			return true;
+		case R.id.action_sign_in_out:
+			if (mHelper.isSignedIn()) {
+				signOut();
+			} else {
+				signIn();
+			}
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -127,6 +142,23 @@ public class MainActivity extends Activity implements GameHelperListener {
 	}
 
 	public void singInGoogle(View v) {
+		signIn();
+	}
+
+	public void showAchievements(View v) {
+		startActivityForResult(
+				mHelper.getGamesClient().getAchievementsIntent(),
+				getResources().getInteger(R.integer.request_code_achievements));
+	}
+
+	public void showLeaderboard(View v) {
+		startActivityForResult(mHelper.getGamesClient()
+				.getAllLeaderboardsIntent(),
+				getResources().getInteger(R.integer.request_code_leaderboards));
+	}
+
+	void signIn() {
+		Toast.makeText(this, R.string.signing_in, Toast.LENGTH_SHORT).show();
 		mHelper.beginUserInitiatedSignIn();
 		// if (!mPlusClient.isConnected()) {
 		// if (mConnectionResult == null) {
@@ -150,7 +182,7 @@ public class MainActivity extends Activity implements GameHelperListener {
 		updateUI();
 	}
 
-	public void signOutGoogle(View v) {
+	void signOut() {
 		// if (mPlusClient.isConnected()) {
 		// mPlusClient.clearDefaultAccount();
 		// mPlusClient.disconnect();
@@ -162,23 +194,10 @@ public class MainActivity extends Activity implements GameHelperListener {
 		updateUI();
 	}
 
-	public void showAchievements(View v) {
-		startActivityForResult(
-				mHelper.getGamesClient().getAchievementsIntent(),
-				getResources().getInteger(R.integer.request_code_achievements));
-	}
-
-	public void showLeaderboard(View v) {
-		startActivityForResult(mHelper.getGamesClient()
-				.getAllLeaderboardsIntent(),
-				getResources().getInteger(R.integer.request_code_leaderboards));
-	}
-
 	void updateUI() {
 		if (mHelper != null && mHelper.isSignedIn()) {
 			signInBar.setVisibility(View.GONE);
 			signedInBar.setVisibility(View.VISIBLE);
-			signOutButton.setVisibility(View.VISIBLE);
 			// greeting.setText(getString(R.string.signed_in_greeting, mHelper
 			// .getPlusClient().getCurrentPerson().getName()
 			// .getGivenName()));
@@ -189,7 +208,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 		} else {
 			signInBar.setVisibility(View.VISIBLE);
 			signedInBar.setVisibility(View.GONE);
-			signOutButton.setVisibility(View.GONE);
 			greeting.setText(getString(R.string.not_signed_in_greeting));
 		}
 	}
