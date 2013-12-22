@@ -7,8 +7,9 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -17,7 +18,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.util.Log;
+import android.view.ContextThemeWrapper;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -35,12 +36,13 @@ public class SettingsActivity extends PreferenceActivity {
 			addPreferencesFromResource(R.xml.preference_headers_legacy);
 			prepareLanguagePreference((ListPreference) findPreference("language"));
 			prepareEraseData(findPreference("erase_data"));
+			prepareLicense(findPreference("license"));
+			prepareUs(findPreference("us"));
 			prepareVersion(findPreference("versionname"));
-			// Log.d("", GooglePlayServicesUtil
-			// .getOpenSourceSoftwareLicenseInfo(this));
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public void onBuildHeaders(List<Header> target) {
 		if (onIsHidingHeaders() || !onIsMultiPane()) {
@@ -103,11 +105,20 @@ public class SettingsActivity extends PreferenceActivity {
 		eraseDataPreference
 				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
+					@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 					@Override
 					public boolean onPreferenceClick(Preference preference) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(
-								SettingsActivity.this,
-								R.style.AppAlertDialogTheme);
+						AlertDialog.Builder builder;
+						if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+							ContextThemeWrapper contextW = new ContextThemeWrapper(
+									SettingsActivity.this,
+									R.style.AppAlertDialogTheme);
+							builder = new AlertDialog.Builder(contextW);
+						} else {
+							builder = new AlertDialog.Builder(
+									SettingsActivity.this,
+									R.style.AppAlertDialogTheme);
+						}
 						builder.setTitle(R.string.erase_data);
 						builder.setMessage(R.string.erase_data_message);
 						builder.setPositiveButton(android.R.string.ok,
@@ -117,14 +128,11 @@ public class SettingsActivity extends PreferenceActivity {
 									public void onClick(DialogInterface dialog,
 											int which) {
 										((Application) getApplication())
-												.eraseData();
+												.removeData();
 										setResult(getResources()
 												.getInteger(
 														R.integer.result_code_erase_data));
 										finish();
-										// TODO onResultActivity to close all
-										// activities onReturn and send back to
-										// MainActivity
 									}
 								});
 						builder.setNegativeButton(android.R.string.no,
@@ -142,14 +150,30 @@ public class SettingsActivity extends PreferenceActivity {
 				});
 	}
 
+	public void prepareUs(Preference usPreference) {
+		// TODO prepare Nosotros (créditos)
+	}
+
+	public void prepareLicense(Preference licensePreference) {
+		// Log.d("",
+		// GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(this));
+		// TODO prepare License
+	}
+
 	public void prepareVersion(Preference versionPreference) {
-		try {
-			String versionName = getPackageManager().getPackageInfo(
-					getPackageName(), 0).versionName;
-			versionPreference.setSummary(versionName);
-		} catch (NameNotFoundException e) {
-			Log.e("", e.getMessage(), e);
-		}
+		versionPreference.setSummary(((Application) getApplication())
+				.getApplicationVersionName());
+		versionPreference
+				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						Uri uri = Uri.parse(((Application) getApplication())
+								.getMarketAndroidLink());
+						startActivity(new Intent(Intent.ACTION_VIEW, uri));
+						return true;
+					}
+				});
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -196,7 +220,11 @@ public class SettingsActivity extends PreferenceActivity {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_about);
 			((SettingsActivity) getActivity())
+					.prepareLicense(findPreference("license"));
+			((SettingsActivity) getActivity()).prepareUs(findPreference("us"));
+			((SettingsActivity) getActivity())
 					.prepareVersion(findPreference("versionname"));
+
 		}
 	}
 

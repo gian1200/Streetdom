@@ -9,9 +9,9 @@
     <integer name="request_code_achievements">4000</integer>
     <integer name="request_code_leaderboards">4001</integer>
     <integer name="request_code_settings_activity">5500</integer>
-    <integer name="request_code_map_activity">55001</integer>
-    <integer name="request_code_place_activity">55002</integer>
-    <integer name="request_code_right_place">55003</integer>
+    <integer name="request_code_map_activity">5501</integer>
+    <integer name="request_code_place_activity">5502</integer>
+    <integer name="request_code_right_place">5503</integer>
     <integer name="radius_range">100</integer>
 
 </resources>

@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -58,8 +60,8 @@ public class MapActivity extends Activity implements LocationListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		mapHasLoaded = false;
-		mapFragment = ((MapFragment) getFragmentManager().findFragmentById(
-				R.id.map));
+		mapFragment = (MapFragment) getFragmentManager().findFragmentById(
+				R.id.map);
 		map = mapFragment.getMap();
 		Bundle extras = getIntent().getExtras();
 		mission = extras.getParcelable(getPackageName() + ".mission");
@@ -100,7 +102,10 @@ public class MapActivity extends Activity implements LocationListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
-			startActivity(new Intent(this, SettingsActivity.class));
+			startActivityForResult(
+					new Intent(this, SettingsActivity.class),
+					getResources().getInteger(
+							R.integer.request_code_settings_activity));
 			return true;
 		case R.id.action_focus_places:
 			focusPlaces(true);
@@ -144,6 +149,11 @@ public class MapActivity extends Activity implements LocationListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
+			setResult(resultCode);
+			finish();
+			return;
+		}
 		if (getResources().getInteger(R.integer.request_code_place_activity) == requestCode) {
 			Bundle extras = data.getExtras();
 			mission = extras.getParcelable(getPackageName() + ".mission");
@@ -152,6 +162,7 @@ public class MapActivity extends Activity implements LocationListener {
 			if (mission.isCompleted) {
 				setResult(resultCode, data);// result_code_mission_completed
 				finish();
+				return;
 			} else {
 				// - Lugar encontrado result_code_right_place
 				// - back pressed, lugar verificado o no
@@ -291,12 +302,21 @@ public class MapActivity extends Activity implements LocationListener {
 			circleAnimator.setInterpolator(new DecelerateInterpolator());
 			circleAnimator.addUpdateListener(new AnimatorUpdateListener() {
 
+				@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
 				@Override
 				public void onAnimationUpdate(ValueAnimator animation) {
 					circle.setRadius((Float) animation.getAnimatedValue());
-					circle.setStrokeColor(ColorUtil.setAlpha0to1(
-							circle.getStrokeColor(),
-							1 - animation.getAnimatedFraction()));
+					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR1) {
+						circle.setStrokeColor(ColorUtil.setAlpha0to1(
+								circle.getStrokeColor(),
+								(float) (1 - (double) animation
+										.getCurrentPlayTime()
+										/ (double) animation.getDuration())));
+					} else {
+						circle.setStrokeColor(ColorUtil.setAlpha0to1(
+								circle.getStrokeColor(),
+								1 - animation.getAnimatedFraction()));
+					}
 				}
 			});
 			circleAnimator.addListener(new AnimatorListener() {

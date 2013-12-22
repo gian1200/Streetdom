@@ -63,7 +63,10 @@ public class PlaceActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
-			startActivity(new Intent(this, SettingsActivity.class));
+			startActivityForResult(
+					new Intent(this, SettingsActivity.class),
+					getResources().getInteger(
+							R.integer.request_code_settings_activity));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -104,6 +107,7 @@ public class PlaceActivity extends Activity {
 							data);
 					// TODO go to winning mission screen
 					finish();
+					return;
 				}
 			} else {
 				((Application) getApplication()).updateMission(mission);
@@ -119,10 +123,16 @@ public class PlaceActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
+			setResult(resultCode);
+			finish();
+			return;
+		}
 		if (getResources().getInteger(R.integer.request_code_right_place) == requestCode) {
 			if (getResources().getInteger(R.integer.result_code_right_place) == resultCode) {
 				setResult(resultCode, data);
 				finish();
+				return;
 			}
 		}
 	}

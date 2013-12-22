@@ -24,6 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="2"
         android:text="@android:string/unknownName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

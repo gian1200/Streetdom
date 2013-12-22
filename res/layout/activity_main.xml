@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:text="@string/not_signed_in_greeting"
-        android:textSize="18sp" />
+        android:textSize="@dimen/main_greeting_textsize" />
 
     <Button
         android:id="@+id/main_play"
@@ -43,7 +43,7 @@
             android:onClick="singInGoogle"
             android:text="@string/common_signin_button_text"
             android:textColor="@color/common_signin_btn_text_dark"
-            android:textSize="14sp"
+            android:textSize="@dimen/main_sign_in_textsize"
             android:textStyle="bold" />
 
         <TextView

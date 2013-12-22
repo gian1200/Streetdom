@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class RightPlaceActivity extends Activity {
@@ -18,10 +19,34 @@ public class RightPlaceActivity extends Activity {
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
+			setResult(resultCode);
+			finish();
+			return;
+		}
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.right_place, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			startActivityForResult(
+					new Intent(this, SettingsActivity.class),
+					getResources().getInteger(
+							R.integer.request_code_settings_activity));
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void keepPlaying(View v) {

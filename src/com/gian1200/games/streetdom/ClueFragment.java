@@ -1,20 +1,31 @@
 package com.gian1200.games.streetdom;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.view.ContextThemeWrapper;
 
 public class ClueFragment extends DialogFragment {
 
 	private Clue clue;
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
-				getActivity(), R.style.AppAlertDialogTheme);
 		clue = getArguments().getParcelable("clue");
+		AlertDialog.Builder dialogBuilder;
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+			ContextThemeWrapper contextW = new ContextThemeWrapper(
+					getActivity(), R.style.AppAlertDialogTheme);
+			dialogBuilder = new AlertDialog.Builder(contextW);
+		} else {
+			dialogBuilder = new AlertDialog.Builder(getActivity(),
+					R.style.AppAlertDialogTheme);
+		}
 		dialogBuilder.setTitle(getString(R.string.clue_title, clue.name));
 		dialogBuilder.setMessage(clue.text);
 		dialogBuilder.setPositiveButton(android.R.string.ok,

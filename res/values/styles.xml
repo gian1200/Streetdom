@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppBaseTheme" parent="android:Theme.Light"></style>
 
@@ -8,9 +8,13 @@
     <style name="AppTheme" parent="AppBaseTheme"></style>
 
     <style name="AppDialogTheme" parent="AppDialogBaseTheme"></style>
+
+    <style name="MainTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/main_background</item>
+    </style>
+
     <style name="AppAlertDialogTheme" parent="AppDialogTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
-        
     </style>
 
 </resources>

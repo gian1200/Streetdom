@@ -2,8 +2,10 @@ package com.gian1200.games.streetdom;
 
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -96,11 +98,15 @@ public class MainActivity extends Activity implements GameHelperListener {
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		MenuItem item = menu.findItem(R.id.menu_item_share);
-		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+		if (Build.VERSION_CODES.ICE_CREAM_SANDWICH <= Build.VERSION.SDK_INT) {
+			mShareActionProvider = (ShareActionProvider) item
+					.getActionProvider();
+		}
 		return true;
 	}
 

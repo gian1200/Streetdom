@@ -16,8 +16,9 @@ public class Application extends ApplicationUtil {
 	User user;
 	ArrayList<Mission> missions, buyableMissions, incompletedMissions,
 			completedMissions;
-	int clueCoinsPrice, cluePointsPrice, helpCoinsPrice, helpPointsPrice;
-	Calendar lastSinc;
+	private int clueCoinsPrice, cluePointsPrice, helpCoinsPrice,
+			helpPointsPrice;
+	private Calendar lastSinc;
 	Locale[] languages = new Locale[] { null, Locale.ENGLISH, new Locale("es") };
 
 	@Override
@@ -61,9 +62,9 @@ public class Application extends ApplicationUtil {
 		// TODO grabar user en SharedPreferences
 	}
 
-	void eraseData() {
-		// TODO eraseData
-		saveData();
+	@Override
+	protected void removeData(Editor editor) {
+		// TODO Auto-generated method stub
 	}
 
 	boolean refreshLanguage() {
@@ -154,4 +155,5 @@ public class Application extends ApplicationUtil {
 		// se debería llamar aquí o solo cuando sea necesario?
 		// saveData();
 	}
+
 }

@@ -17,7 +17,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/about" >
         <Preference
-            android:key="licence"
+            android:key="license"
             android:title="@string/license" />
         <Preference
             android:key="us"

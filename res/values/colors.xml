@@ -2,7 +2,10 @@
 <resources>
 
     <color name="main_sign_in_why">#808080</color>
-    <color name="main_sign_in_background">#f0f0f0</color>
+    <color name="main_sign_in_background">#F0F0F0</color>
+    <!-- 94dbff 5774B5 -->
+    <color name="main_background_gradient_start">#F9F9F9</color>
+    <color name="main_background_gradient_end">#F9F9F9</color>
     <color name="mission_progress_red">@color/light_red</color>
     <color name="mission_progress_yellow">@color/light_yellow</color>
     <color name="mission_progress_green">@color/light_green</color>

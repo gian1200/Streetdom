@@ -2,9 +2,9 @@ package com.gian1200.games.streetdom;
 
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
-public class MissionActivity extends Activity {
+public class MissionActivity extends FragmentActivity {
 
 	TextView title, description;
 	Mission mission;
@@ -56,7 +56,10 @@ public class MissionActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
-			startActivity(new Intent(this, SettingsActivity.class));
+			startActivityForResult(
+					new Intent(this, SettingsActivity.class),
+					getResources().getInteger(
+							R.integer.request_code_settings_activity));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -89,6 +92,11 @@ public class MissionActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
+			setResult(resultCode);
+			finish();
+			return;
+		}
 		if (getResources().getInteger(R.integer.request_code_play_services) == requestCode) {
 			if (resultCode != RESULT_OK) {
 				Toast.makeText(this,
@@ -110,6 +118,6 @@ public class MissionActivity extends Activity {
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("clue", mission.getCurrentClue());
 		clueFragment.setArguments(bundle);
-		clueFragment.show(getFragmentManager(), "clue_fragmemt");
+		clueFragment.show(getSupportFragmentManager(), "clue_fragmemt");
 	}
 }

@@ -2,18 +2,18 @@ package com.gian1200.games.streetdom;
 
 import java.util.Locale;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-public class MissionsActivity extends Activity {
+public class MissionsActivity extends FragmentActivity {
 
 	ListView missionsList;
 	SectionsPagerAdapter mSectionsPagerAdapter;
@@ -27,8 +27,10 @@ public class MissionsActivity extends Activity {
 		locale = getResources().getConfiguration().locale;
 		setContentView(R.layout.activity_missions);
 		mViewPager = (ViewPager) findViewById(R.id.missions_pager);
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(
+				getSupportFragmentManager());
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		mViewPager.setCurrentItem(1);
 	}
 
 	@Override
@@ -69,6 +71,7 @@ public class MissionsActivity extends Activity {
 		if (getResources().getInteger(R.integer.result_code_erase_data) == resultCode) {
 			setResult(resultCode);
 			finish();
+			return;
 		}
 	}
 
