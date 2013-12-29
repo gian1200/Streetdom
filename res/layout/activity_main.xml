@@ -14,16 +14,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:text="@string/not_signed_in_greeting"
+        android:textColor="@color/main_greeting"
         android:textSize="@dimen/main_greeting_textsize" />
-
-    <Button
-        android:id="@+id/main_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="showMissions"
-        android:text="@string/missions" />
 
     <LinearLayout
         android:id="@+id/main_sign_in_bar"
@@ -99,6 +91,36 @@
                 android:src="@drawable/main_leaderboards_background"
                 android:text="@string/leaderboards" />
         </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/main_missions_background"
+        android:gravity="center"
+        android:onClick="showMissions"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/main_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:text="@string/progress"
+            android:textSize="@dimen/main_progress_textsize" />
+
+        <TextView
+            android:id="@+id/main_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:text="@string/missions"
+            android:textSize="@dimen/main_missions_textsize" />
     </LinearLayout>
 
 </RelativeLayout>

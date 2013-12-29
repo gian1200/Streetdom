@@ -40,6 +40,8 @@ public class MainActivity extends Activity implements GameHelperListener {
 		greeting = (TextView) findViewById(R.id.main_greeting);
 		mHelper = new GameHelper(this);
 		mHelper.setup(this, GameHelper.CLIENT_GAMES);
+		TextView progress = (TextView) findViewById(R.id.main_progress);
+		progress.setText(getString(R.string.progress, 100f));
 	}
 
 	@Override

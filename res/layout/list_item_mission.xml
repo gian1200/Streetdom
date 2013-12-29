@@ -13,10 +13,13 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/mission_progress"
+        android:duplicateParentState="true"
         android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
         android:maxLines="1"
         android:text="@android:string/unknownName"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/missions_item_text" />
 
     <TextView
         android:id="@+id/mission_progress"
@@ -24,11 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:shadowColor="@android:color/black"
+        android:shadowColor="@color/missions_divider"
         android:shadowDx="0"
         android:shadowDy="0"
-        android:shadowRadius="2"
-        android:text="@android:string/unknownName"
+        android:shadowRadius="3"
+        android:text="@string/progress"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

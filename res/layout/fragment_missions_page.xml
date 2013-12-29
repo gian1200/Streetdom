@@ -4,6 +4,9 @@
     android:id="@+id/missions_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:divider="@color/missions_divider"
+    android:listSelector="@drawable/missions_listselector"
+    android:dividerHeight="1dp"
     tools:listitem="@layout/list_item_mission" >
 
 </ListView>

@@ -3,9 +3,18 @@
 
     <color name="main_sign_in_why">#808080</color>
     <color name="main_sign_in_background">#F0F0F0</color>
-    <!-- 94dbff 5774B5 -->
-    <color name="main_background_gradient_start">#F9F9F9</color>
-    <color name="main_background_gradient_end">#F9F9F9</color>
+    <color name="main_background_gradient_start">@color/edwin_blue_light</color>
+    <color name="main_background_gradient_end">@color/edwin_blue_dark</color>
+    <color name="main_greeting">@android:color/white</color>
+    <color name="missions_background_gradient_start">@color/edwin_gray_light</color>
+    <color name="missions_background_gradient_end">@color/edwin_gray_dark</color>
+    <color name="missions_tab_background">#495779</color>
+    <color name="missions_tab_text">@android:color/white</color>
+    <color name="missions_divider">#C2C3C8</color>
+    <color name="missions_item_background_normal">@android:color/transparent</color>
+    <color name="missions_item_background_pressed">#D7D8DC</color>
+    <color name="missions_item_text_normal">@color/edwin_blue_dark</color>
+    <color name="missions_item_text_pressed">@color/edwin_red</color>
     <color name="mission_progress_red">@color/light_red</color>
     <color name="mission_progress_yellow">@color/light_yellow</color>
     <color name="mission_progress_green">@color/light_green</color>
@@ -15,7 +24,15 @@
     <color name="dark_yellow">#FF8800</color>
     <color name="light_red">#FF4444</color>
     <color name="dark_red">#CC0000</color>
-    <color name="missions_tab_background">@android:color/white</color>
-    <color name="missions_tab_text_color">#0099CC</color>
+    <color name="edwin_red">#C54D64</color>
+    <color name="edwin_green_light">#1E9B9E</color>
+    <color name="edwin_green_dark">#177A7A</color>
+    <color name="edwin_gray_light">#F7F7F8</color>
+    <color name="edwin_gray_dark">#ECEDEF</color>
+    <!-- 94dbff 5774B5 -->
+    <!-- F9F9F9 F9F9F9 -->
+    <color name="edwin_blue_light">#3F517A</color>
+    <color name="edwin_blue_dark">#303E62</color>
+    <!-- 0099CC -->
 
 </resources>

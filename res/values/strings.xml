@@ -12,6 +12,7 @@
     <string name="map">Map</string>
     <string name="mission">Mission</string>
     <string name="missions">Missions</string>
+    <string name="progress" translatable="false">%1$3.0f%%</string>
     <string name="completed_missions">Completed Missions</string>
     <string name="incompleted_missions">Incompleted Missions</string>
     <string name="new_missions">New Missions</string>

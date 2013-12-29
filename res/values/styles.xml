@@ -12,6 +12,10 @@
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/main_background</item>
     </style>
+    
+      <style name="MissionsTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/missions_background</item>
+    </style>
 
     <style name="AppAlertDialogTheme" parent="AppDialogTheme">
         <item name="android:windowBackground">@android:color/transparent</item>

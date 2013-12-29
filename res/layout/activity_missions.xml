@@ -4,17 +4,18 @@
     android:id="@+id/missions_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    android.support.v4.view.PagerTabStrip=""
+    tools:context=".MissionsActivity" >
 
     <android.support.v4.view.PagerTabStrip
-        android:id="@+id/pager_tab_strip"
+        android:id="@+id/missions_pager_tab_strip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:background="@color/missions_tab_text_color"
+        android:background="@color/missions_tab_background"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:textColor="@color/missions_tab_background" />
+        android:textColor="@color/missions_tab_text" />
 
 </android.support.v4.view.ViewPager> <!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
 <!-- xmlns:tools="http://schemas.android.com/tools" -->

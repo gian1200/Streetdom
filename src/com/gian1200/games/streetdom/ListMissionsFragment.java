@@ -107,7 +107,7 @@ public abstract class ListMissionsFragment extends Fragment {
 						green, (progress - 50) / 50));
 			}
 			holder.name.setText(getItem(position).name);
-			holder.progress.setText(String.format("%3.0f%%", progress));
+			holder.progress.setText(getString(R.string.progress, progress));
 			return convertView;
 		}
 
