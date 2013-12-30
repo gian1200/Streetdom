@@ -25,7 +25,7 @@
         android:background="@color/main_sign_in_background"
         android:gravity="center"
         android:padding="10dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/main_sign_in"
@@ -56,41 +56,39 @@
         android:baselineAligned="false"
         android:gravity="center"
         android:padding="10dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/main_achievements"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/main_achievements_background"
+            android:clickable="true"
+            android:contentDescription="@string/achievements"
+            android:drawableTop="@drawable/main_achievements"
+            android:gravity="center"
+            android:onClick="showAchievements"
+            android:padding="10dp"
+            android:text="@string/achievements"
+            android:textColor="@color/main_achievements_text" />
 
-            <ImageView
-                android:id="@+id/main_achievements"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/achievements"
-                android:gravity="center"
-                android:onClick="showAchievements"
-                android:src="@drawable/main_achievements_background"
-                android:text="@string/achievements" />
-        </FrameLayout>
-
-        <FrameLayout
+        <TextView
+            android:id="@+id/main_leaderboards"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:id="@+id/main_leaderboards"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/leaderboards"
-                android:gravity="center"
-                android:onClick="showLeaderboard"
-                android:src="@drawable/main_leaderboards_background"
-                android:text="@string/leaderboards" />
-        </FrameLayout>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/main_leaderboards_background"
+            android:clickable="true"
+            android:contentDescription="@string/leaderboards"
+            android:drawableTop="@drawable/main_leaderboards"
+            android:gravity="center"
+            android:onClick="showLeaderboard"
+            android:padding="10dp"
+            android:text="@string/leaderboards"
+            android:textColor="@color/main_leaderboards_text" />
     </LinearLayout>
 
     <LinearLayout
