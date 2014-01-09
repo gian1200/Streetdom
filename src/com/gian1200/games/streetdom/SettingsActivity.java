@@ -52,6 +52,18 @@ public class SettingsActivity extends PreferenceActivity {
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	@Override
+	protected boolean isValidFragment(String fragmentName) {
+		return GeneralPreferenceFragment.class.getName().equals(fragmentName)
+				|| NotificationsPreferenceFragment.class.getName().equals(
+						fragmentName)
+				|| DataPreferenceFragment.class.getName().equals(fragmentName)
+				|| AboutPreferenceFragment.class.getName().equals(fragmentName)
+				|| super.isValidFragment(fragmentName);
+
+	}
+
 	public void prepareLanguagePreference(
 			final ListPreference languagePreference) {
 		String[] entries = new String[languages.length];

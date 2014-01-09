@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gian1200.games.streetdom"
     android:installLocation="auto"
-    android:versionCode="12"
-    android:versionName="0.0.12" >
+    android:versionCode="13"
+    android:versionName="0.0.13" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -61,7 +61,8 @@
         </activity>
         <activity
             android:name="com.gian1200.games.streetdom.MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map"
+            android:theme="@style/MapTheme" >
         </activity>
         <activity
             android:name="com.gian1200.games.streetdom.PlaceActivity"

@@ -15,9 +15,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.gian1200.util.ColorUtil;
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +76,21 @@ public class MapActivity extends Activity implements LocationListener {
 		loadPlacesMarkers();
 		moveCameraToFitAllMarkersWhenReady(false);
 		loadLocationUpdater();
+		ListView placesList = (ListView) findViewById(R.id.map_places_list);
+		if (placesList != null) {
+			placesList.setAdapter(new PlaceListAdapter(this, mission.places));
+			placesList.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					markers[position].showInfoWindow();
+					map.animateCamera(CameraUpdateFactory
+							.newLatLng(markers[position].getPosition()), 400,
+							null);
+				}
+			});
+		}
 		// map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
 		// -12.07250575708222, -76.9514923542738), 16));
 
@@ -425,4 +446,50 @@ public class MapActivity extends Activity implements LocationListener {
 		}
 	}
 
+	private class PlaceListAdapter extends BaseAdapter {
+		MapActivity mapActivity;
+		Place[] places;
+
+		public PlaceListAdapter(MapActivity mapActivity, Place[] places) {
+			super();
+			this.mapActivity = mapActivity;
+			this.places = places;
+		}
+
+		@Override
+		public int getCount() {
+			return places.length;
+		}
+
+		@Override
+		public Place getItem(int position) {
+			return places[position];
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return places[position].id;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder holder;
+			if (convertView == null) {
+				convertView = mapActivity.getLayoutInflater().inflate(
+						R.layout.list_item_place_map, parent, false);
+				holder = new ViewHolder();
+				holder.name = (TextView) convertView
+						.findViewById(R.id.place_name);
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+			holder.name.setText(getItem(position).name);
+			return convertView;
+		}
+
+		private class ViewHolder {
+			TextView name;
+		}
+	}
 }

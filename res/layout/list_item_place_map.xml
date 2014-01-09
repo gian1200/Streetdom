@@ -7,31 +7,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin" >
 
     <TextView
-        android:id="@+id/mission_name"
+        android:id="@+id/place_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/mission_progress"
         android:duplicateParentState="true"
-        android:ellipsize="end"
         android:fontFamily="sans-serif-light"
-        android:maxLines="1"
         android:text="@android:string/unknownName"
         android:textColor="@color/missions_item_text"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/mission_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:shadowColor="@color/missions_divider"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="3"
-        android:text="@string/progress"
         android:textSize="18sp" />
 
 </RelativeLayout>
