@@ -2,6 +2,7 @@ package com.gian1200.games.streetdom;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class Mission implements Parcelable {
 	int id, pointsToEarn, currentClue;
@@ -18,6 +19,10 @@ public class Mission implements Parcelable {
 		this.description = description;
 		this.places = places;
 		this.clues = clues;
+		if (places.length < clues.length) {
+			Log.e("Mission.init",
+					"places.length No debería ser menor o igual que clues.length");
+		}
 	}
 
 	public static final Parcelable.Creator<Mission> CREATOR = new Parcelable.Creator<Mission>() {

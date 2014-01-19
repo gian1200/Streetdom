@@ -65,4 +65,9 @@ public class Place implements Parcelable {
 	public void visit() {
 		visited = true;
 	}
+
+	public void setPosition(double latitude, double longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 }

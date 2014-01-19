@@ -81,28 +81,26 @@ public class Application extends ApplicationUtil {
 				Configuration config = new Configuration();
 				config.locale = languages[languageIndex];
 				getResources().updateConfiguration(config, null);
-				Log.d("", "se ha cambiado");
+				Log.d("Application.refreshLanguage", "se ha cambiado");
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private void fillMisions() {
-		Place[] places = new Place[] {
-				new Place(1, "Palacio de Justicia", "Descripción del lugar 1",
-						-12.092548137298373, -76.99775375425816),
-				new Place(
-						2,
-						"Bar La Catedral",
-						"A very popular bar in the 50s where the famous peruvian writer, Mario Vargas Llosa, got inspiration to write his famous book Conversaciones en la Catedral. In this specific place, the guardians hide out for a few days.",
-						-12.09261731079396, -76.99825935065746),
-				new Place(3, "Hotel Sheraton", "Descripción del lugar 3",
-						-12.09302153280611, -76.99819531291723),
-				new Place(4, "Casa de los guardianes",
-						"Descripción del lugar 4", -12.093088360535287,
-						-76.99774872511625) };
-		Clue[] clues = new Clue[] {
+	private Mission getMisionEdwin(int id, String name, String description) {
+		// -11.9428475, -76.9757984
+		Place[] places = getTestPlaces(-11.9428475, -76.9757984);
+		Clue[] clues = getTestClues();
+		return new Mission(id, name, description, places, clues);
+	}
+
+	private Place[] getTestPlaces() {
+		return getTestPlaces(-12.09281884, -76.99798929);
+	}
+
+	private Clue[] getTestClues() {
+		return new Clue[] {
 				new Clue(
 						"Accused",
 						"Source of inspiration. Peruvian Writer. 1969. Nobel Prize.",
@@ -115,6 +113,29 @@ public class Application extends ApplicationUtil {
 						"Secret",
 						"Source of inspiration. Peruvian Writer. 1969. Nobel Prize.",
 						3) };
+	}
+
+	private Place[] getTestPlaces(double latitude, double longitude) {
+		// -12.09281884,-76.99798929
+		return new Place[] {
+				new Place(1, "Palacio de Justicia", "Descripción del lugar 1",
+						latitude + 0.000270698, longitude + 0.000235531),
+				new Place(
+						2,
+						"Bar La Catedral",
+						"A very popular bar in the 50s where the famous peruvian writer, Mario Vargas Llosa, got inspiration to write his famous book Conversaciones en la Catedral. In this specific place, the guardians hide out for a few days.",
+						latitude + 0.000201525, longitude - 0.000270065),
+				new Place(3, "Hotel Sheraton", "Descripción del lugar 3",
+						latitude - 0.000202697, longitude - 0.000206027),
+				new Place(4, "Casa de los guardianes",
+						"Descripción del lugar 4", latitude - 0.000269525,
+						longitude + 0.000240561) };
+	}
+
+	private void fillMisions() {
+		// -12.09281884,-76.99798929
+		Place[] places = getTestPlaces();
+		Clue[] clues = getTestClues();
 		missions.add(new Mission(
 				1,
 				"Miscarriage of Justice",
@@ -127,14 +148,16 @@ public class Application extends ApplicationUtil {
 		missions.add(new Mission(4, "The path of no return",
 				"Descripcion de la misión The path of no return", places, clues));
 		missions.add(new Mission(5, "Forbidden Kingdom",
-				"Descripcion de la misión", places, clues));
+				"Descripcion de la misión Forbidden Kingdom", places, clues));
 		missions.add(new Mission(6, "The collector",
-				"Descripcion de la misión", places, clues));
+				"Descripcion de la misión The collector", places, clues));
 		missions.add(new Mission(
-				6,
+				7,
 				"The collector de los tesoros más increibles que puedan existir",
-				"Descripcion de la misión", places, clues));
-
+				"Descripcion de la misión The collector de los tesoros más increibles que puedan existir",
+				places, clues));
+		missions.add(getMisionEdwin(8, "Los monstruitos diseñadores",
+				"Descripción de la misión Los monstruitos diseñadores"));
 	}
 
 	void updateMission(final Mission mission) {
