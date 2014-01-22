@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -25,6 +25,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gian1200.games.streetdom.Mission;
+import com.gian1200.games.streetdom.Place;
+import com.gian1200.games.streetdom.R;
 import com.gian1200.util.ColorUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;

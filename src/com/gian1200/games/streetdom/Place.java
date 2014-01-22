@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Place implements Parcelable {
-	int id;
-	String name, description;
-	double latitude, longitude;
-	boolean visited;
+	public int id;
+	public String name, description;
+	public double latitude, longitude;
+	public boolean visited;
 
 	public Place(int id, String name, String description, double latitude,
 			double longitude) {

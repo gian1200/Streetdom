@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +19,9 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.view.ContextThemeWrapper;
+
+import com.gian1200.games.streetdom.Application;
+import com.gian1200.games.streetdom.R;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -163,7 +166,16 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	public void prepareUs(Preference usPreference) {
-		// TODO prepare Nosotros (créditos)
+		usPreference
+				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						startActivity(new Intent(SettingsActivity.this,
+								CreditsActivity.class));
+						return true;
+					}
+				});
 	}
 
 	public void prepareLicense(Preference licensePreference) {

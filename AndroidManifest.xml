@@ -37,8 +37,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.gian1200.games.streetdom.MainActivity"
-            android:label="@string/app_name"
+            android:name="com.gian1200.games.streetdom.activities.MainActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/MainTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,29 +47,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.gian1200.games.streetdom.SettingsActivity"
+            android:name="com.gian1200.games.streetdom.activities.SettingsActivity"
             android:label="@string/settings" >
         </activity>
         <activity
-            android:name="com.gian1200.games.streetdom.MissionsActivity"
+            android:name="com.gian1200.games.streetdom.activities.CreditsActivity"
+            android:label="@string/title_activity_credits" >
+        </activity>
+        <activity
+            android:name="com.gian1200.games.streetdom.activities.MissionsActivity"
             android:label="@string/title_activity_missions"
             android:theme="@style/MissionsTheme" >
         </activity>
         <activity
-            android:name="com.gian1200.games.streetdom.MissionActivity"
+            android:name="com.gian1200.games.streetdom.activities.MissionActivity"
             android:label="@string/title_activity_mission" >
         </activity>
         <activity
-            android:name="com.gian1200.games.streetdom.MapActivity"
+            android:name="com.gian1200.games.streetdom.activities.MapActivity"
             android:label="@string/title_activity_map"
             android:theme="@style/MapTheme" >
         </activity>
         <activity
-            android:name="com.gian1200.games.streetdom.PlaceActivity"
+            android:name="com.gian1200.games.streetdom.activities.PlaceActivity"
             android:label="@string/title_activity_place" >
         </activity>
         <activity
-            android:name="com.gian1200.games.streetdom.RightPlaceActivity"
+            android:name="com.gian1200.games.streetdom.activities.RightPlaceActivity"
             android:label="@string/title_activity_right_place" >
         </activity>
 

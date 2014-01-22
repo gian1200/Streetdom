@@ -5,12 +5,14 @@ import android.os.Parcelable;
 import android.util.Log;
 
 public class Mission implements Parcelable {
-	int id, pointsToEarn, currentClue;
-	String name, description;
-	Place[] places;
+	public int id;
+	int pointsToEarn;
+	public int currentClue;
+	public String name, description;
+	public Place[] places;
 	Clue[] clues;
-	boolean isCompleted;
-	float progress;
+	public boolean isCompleted;
+	public float progress;
 
 	public Mission(int id, String name, String description, Place[] places,
 			Clue[] clues) {

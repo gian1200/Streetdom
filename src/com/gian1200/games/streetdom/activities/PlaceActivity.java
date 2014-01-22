@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities;
 
 import java.util.Locale;
 
@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gian1200.games.streetdom.Application;
+import com.gian1200.games.streetdom.Mission;
+import com.gian1200.games.streetdom.Place;
+import com.gian1200.games.streetdom.R;
 import com.google.android.gms.maps.model.LatLng;
 
 public class PlaceActivity extends Activity {

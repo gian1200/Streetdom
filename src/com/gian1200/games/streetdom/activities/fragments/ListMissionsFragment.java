@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities.fragments;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gian1200.games.streetdom.Mission;
+import com.gian1200.games.streetdom.R;
+import com.gian1200.games.streetdom.activities.MissionActivity;
 import com.gian1200.util.ColorUtil;
 
 public abstract class ListMissionsFragment extends Fragment {

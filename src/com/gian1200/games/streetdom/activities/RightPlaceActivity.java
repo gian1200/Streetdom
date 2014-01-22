@@ -1,4 +1,5 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities;
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.gian1200.games.streetdom.Mission;
+import com.gian1200.games.streetdom.R;
 
 public class RightPlaceActivity extends Activity {
 	Mission mission;

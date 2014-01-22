@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities.fragments;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -8,6 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.ContextThemeWrapper;
+
+import com.gian1200.games.streetdom.Clue;
+import com.gian1200.games.streetdom.R;
 
 public class ClueFragment extends DialogFragment {
 

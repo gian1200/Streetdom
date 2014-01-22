@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Hint implements Parcelable {
-	String text;
+	public String text;
 
 	// audio, image, video
 

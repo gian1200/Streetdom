@@ -2,11 +2,13 @@
 <resources>
 
     <string name="app_name">Streetdom</string>
+    <string name="title_activity_main" translatable="false">@string/app_name</string>
     <string name="title_activity_map" translatable="false">@string/map</string>
     <string name="title_activity_place" translatable="false">@string/place</string>
     <string name="title_activity_mission" translatable="false">@string/mission</string>
     <string name="title_activity_missions" translatable="false">@string/missions</string>
     <string name="title_activity_right_place" translatable="false">@string/right_place</string>
+    <string name="title_activity_credits" translatable="false">@string/us</string>
     <string name="place_check">Check</string>
     <string name="mission_open_map">Open Map</string>
     <string name="map">Map</string>

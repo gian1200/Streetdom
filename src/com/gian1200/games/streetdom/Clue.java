@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 public class Clue extends Hint {
 
-	int placeId;
-	String name;
+	public int placeId;
+	public String name;
 
 	public static final Parcelable.Creator<Clue> CREATOR = new Parcelable.Creator<Clue>() {
 		@Override

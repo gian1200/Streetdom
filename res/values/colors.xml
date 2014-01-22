@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <color name="main_sign_in_why">#808080</color>
-    <color name="main_sign_in_background">#F0F0F0</color>
     <color name="main_background_gradient_start">@color/edwin_blue_light</color>
     <color name="main_background_gradient_end">@color/edwin_blue_dark</color>
+    <color name="main_sign_in_why">#808080</color>
+    <color name="main_sign_in_background">#F0F0F0</color>
     <color name="main_greeting">@android:color/white</color>
+    <color name="main_achievements_background_normal">@color/edwin_gray_light</color>
+    <color name="main_achievements_background_pressed">@color/edwin_gray_dark</color>
+    <color name="main_leaderboards_background_normal">@color/edwin_gray_light</color>
+    <color name="main_leaderboards_background_pressed">@color/edwin_gray_dark</color>
+    <color name="main_mission_background_normal_stroke">@color/edwin_green_light</color>
+    <color name="main_mission_background_pressed_stroke">@color/edwin_green_dark</color>
+    <color name="main_mission_background_normal">@color/edwin_gray_light</color>
+    <color name="main_mission_background_pressed">@color/edwin_gray_dark</color>
     <color name="missions_background_gradient_start">@color/edwin_gray_light</color>
     <color name="missions_background_gradient_end">@color/edwin_gray_dark</color>
     <color name="missions_tab_background">#495779</color>
@@ -14,17 +22,16 @@
     <color name="missions_item_background_normal">@android:color/transparent</color>
     <color name="missions_item_background_pressed">#D7D8DC</color>
     <color name="missions_item_text_normal">@color/edwin_blue_dark</color>
-    <color name="missions_item_text_pressed">@color/edwin_red</color>
+    <color name="missions_item_text_pressed">#C54D64</color>
     <color name="mission_progress_red">@color/light_red</color>
     <color name="mission_progress_yellow">@color/light_yellow</color>
     <color name="mission_progress_green">@color/light_green</color>
     <color name="light_green">#99CC00</color>
-    <color name="dark_green">#669900</color>
+    <!-- <color name="dark_green">#669900</color> -->
     <color name="light_yellow">#FFBB33</color>
-    <color name="dark_yellow">#FF8800</color>
+    <!-- <color name="dark_yellow">#FF8800</color> -->
     <color name="light_red">#FF4444</color>
-    <color name="dark_red">#CC0000</color>
-    <color name="edwin_red">#C54D64</color>
+    <!-- <color name="dark_red">#CC0000</color> -->
     <color name="edwin_green_light">#1E9B9E</color>
     <color name="edwin_green_dark">#177A7A</color>
     <color name="edwin_gray_light">#F7F7F8</color>

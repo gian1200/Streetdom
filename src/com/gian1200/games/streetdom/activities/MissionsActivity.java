@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities;
 
 import java.util.Locale;
 
@@ -13,6 +13,12 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import com.gian1200.games.streetdom.Application;
+import com.gian1200.games.streetdom.R;
+import com.gian1200.games.streetdom.activities.fragments.ListBuyableMissionsFragment;
+import com.gian1200.games.streetdom.activities.fragments.ListCompletedMissionsFragment;
+import com.gian1200.games.streetdom.activities.fragments.ListIncompletedMissionsFragment;
 
 public class MissionsActivity extends FragmentActivity {
 

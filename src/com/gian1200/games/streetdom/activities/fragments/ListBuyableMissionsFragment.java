@@ -1,4 +1,4 @@
-package com.gian1200.games.streetdom;
+package com.gian1200.games.streetdom.activities.fragments;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.gian1200.games.streetdom.Application;
+import com.gian1200.games.streetdom.Mission;
+import com.gian1200.games.streetdom.R;
 
 public class ListBuyableMissionsFragment extends ListMissionsFragment {
 

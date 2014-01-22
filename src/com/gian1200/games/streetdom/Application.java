@@ -14,12 +14,15 @@ import com.gian1200.util.ApplicationUtil;
 
 public class Application extends ApplicationUtil {
 	User user;
-	ArrayList<Mission> missions, buyableMissions, incompletedMissions,
-			completedMissions;
+	ArrayList<Mission> missions;
+	public ArrayList<Mission> buyableMissions;
+	public ArrayList<Mission> incompletedMissions;
+	public ArrayList<Mission> completedMissions;
 	private int clueCoinsPrice, cluePointsPrice, helpCoinsPrice,
 			helpPointsPrice;
 	private Calendar lastSinc;
-	Locale[] languages = new Locale[] { null, Locale.ENGLISH, new Locale("es") };
+	public Locale[] languages = new Locale[] { null, Locale.ENGLISH,
+			new Locale("es") };
 
 	@Override
 	public void onCreate() {
@@ -67,7 +70,7 @@ public class Application extends ApplicationUtil {
 		// TODO Auto-generated method stub
 	}
 
-	boolean refreshLanguage() {
+	public boolean refreshLanguage() {
 		return refreshLanguage(PreferenceManager
 				.getDefaultSharedPreferences(this));
 	}
@@ -160,7 +163,7 @@ public class Application extends ApplicationUtil {
 				"Descripción de la misión Los monstruitos diseñadores"));
 	}
 
-	void updateMission(final Mission mission) {
+	public void updateMission(final Mission mission) {
 		for (Mission mission2 : missions) {
 			if (mission2.id == mission.id) {
 				mission2.currentClue = mission.currentClue;
