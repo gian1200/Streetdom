@@ -38,7 +38,8 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
     <!-- Google Play -->
-    <string name="google_play_services" translatable="false">Google Play services</string>
+    <string name="google_play_services" translatable="false">Google Play Services</string>
+    <string name="base_game_utils" translatable="false">Base Game Utils</string>
     <!-- Actions -->
     <string name="action_settings" translatable="false">@string/settings</string>
     <string name="action_sign_in_out" translatable="false">@string/sign_in</string>

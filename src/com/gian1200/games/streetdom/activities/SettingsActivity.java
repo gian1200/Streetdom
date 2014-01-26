@@ -22,6 +22,7 @@ import android.view.ContextThemeWrapper;
 
 import com.gian1200.games.streetdom.Application;
 import com.gian1200.games.streetdom.R;
+import com.gian1200.util.StringUtil;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -199,8 +200,8 @@ public class SettingsActivity extends PreferenceActivity {
 
 					@Override
 					public boolean onPreferenceClick(Preference preference) {
-						Uri uri = Uri.parse(((Application) getApplication())
-								.getMarketAndroidLink());
+						Uri uri = Uri.parse(StringUtil
+								.getMarketAndroidLink(SettingsActivity.this));
 						startActivity(new Intent(Intent.ACTION_VIEW, uri));
 						return true;
 					}

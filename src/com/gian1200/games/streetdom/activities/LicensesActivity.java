@@ -6,26 +6,48 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.gian1200.games.streetdom.R;
+import com.gian1200.util.StringUtil;
 import com.gian1200.util.views.CardView;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class LicensesActivity extends Activity {
 
+	private CardView googlePlayServicesCard, baseGameUtilCard, androidUtilCard;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_licenses);
-		final CardView card = (CardView) findViewById(R.id.license_google_play_services);
-		// card.contentTextView.setText(GooglePlayServicesUtil
-		// .getOpenSourceSoftwareLicenseInfo(this));
-		// card.contentTextView
-		// .setText("sldkfj hsdflkhsdfklj sadlfj hsdfljasd hflkjsa hfljsakd fhaslkj hsdj fhsladkfj hsadlkfjhsadlkfjhsdlkjfhlkdjsflkasjdfhasl jfalskdjf haslkdjf hsalkjd fhlksaj fhlkajs fhlkjasfhas dlfjsdflkjhsaldkfjhslakdjfaslkjdflkjasdfhlakjsfhlkajsdfhsl dfjsadlfhsdlkjfsdalkfjsdljkflkjasdfkljasfkljasdhfkljsadhfas dfjasdlfkjsadlfkjasdlfjkhaslkjlsakdjflksadjflaksjd fljkas fdsa djkflsdlkfhlskdjfhlsakdjf hlaksj fhlkasj fhlkasj fhlkasj fhas dlfjh sadlkfj hsdfljhsadlfkjsadlfkjhsaflkjasdlfkjslkjdflkjsa fh+çs fhasdfkhasdlkfjhasdlkfjhasldkjfhlsadkj flasjd fhlj sadflkj");
-		card.setOnClickListener(new OnClickListener() {
-
+		googlePlayServicesCard = (CardView) findViewById(R.id.license_google_play_services);
+		baseGameUtilCard = (CardView) findViewById(R.id.license_base_game_utils);
+		androidUtilCard = (CardView) findViewById(R.id.license_android_util);
+		googlePlayServicesCard.contentTextView.setText(GooglePlayServicesUtil
+				.getOpenSourceSoftwareLicenseInfo(this));
+		baseGameUtilCard.contentTextView.setText(StringUtil
+				.getLicenseApache2_0(this, "2013", "Google Inc."));
+		androidUtilCard.contentTextView.setText(StringUtil
+				.getAndroidUtilLicense(this));
+		googlePlayServicesCard.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				card.expandCollapseContent();
+				googlePlayServicesCard.expandorCollapseContent();
+			}
+
+		});
+		baseGameUtilCard.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				baseGameUtilCard.expandorCollapseContent();
+			}
+
+		});
+		androidUtilCard.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				androidUtilCard.expandorCollapseContent();
 			}
 
 		});

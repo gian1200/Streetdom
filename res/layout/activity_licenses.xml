@@ -16,30 +16,29 @@
         android:orientation="vertical" >
 
         <com.gian1200.util.views.CardView
-            android:id="@+id/license_google_play_services"
+            android:id="@+id/license_android_util"
             style="@style/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentText="sldkfj hsdflkhsdfklj sadlfj hsdfljasd hflkjsa hfljsakd fhaslkj hsdj fhsladkfj hsadlkfjhsadlkfjhsdlkjfhlkdjsflkasjdfhasl jfalskdjf haslkdjf hsalkjd fhlksaj fhlkajs fhlkjasfhas dlfjsdflkjhsaldkfjhslakdjfaslkjdflkjasdfhlakjsfhlkajsdfhsl dfjsadlfhsdlkjfsdalkfjsdljkflkjasdfkljasfkljasdhfkljsadhfas dfjasdlfkjsadlfkjasdlfjkhaslkjlsakdjflksadjflaksjd fljkas fdsa djkflsdlkfhlskdjfhlsakdjf hlaksj fhlkasj fhlkasj fhlkasj fhas dlfjh sadlkfj hsdfljhsadlfkjsadlfkjhsaflkjasdlfkjslkjdflkjsa fh+çs fhasdfkhasdlkfjhasdlkfjhasldkjfhlsadkj flasjd fhlj sadflkj"
             app:contentType="text"
-            app:titleText="@string/google_play_services" />
+            app:titleText="@string/android_util" />
 
         <com.gian1200.util.views.CardView
-            android:id="@+id/license_google_pldfgdfses"
+            android:id="@+id/license_base_game_utils"
             style="@style/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentText="este es el texto"
             app:contentType="text"
-            app:titleText="Tituls" />
+            app:titleText="@string/base_game_utils" />
 
         <com.gian1200.util.views.CardView
-            android:id="@+id/license_google_pldssfgdfses"
+            android:id="@+id/license_google_play_services"
             style="@style/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentText="este es el t sfksh flskaj fhslkdjf hsadkljfhsalkdj fhsadkljfsakldj fhlksad lksajd"
-            app:contentType="text" />
+            app:contentText=""
+            app:titleText="@string/google_play_services" />
     </LinearLayout>
 
 </ScrollView>
