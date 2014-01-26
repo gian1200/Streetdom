@@ -8,6 +8,7 @@
     <string name="title_activity_mission" translatable="false">@string/mission</string>
     <string name="title_activity_missions" translatable="false">@string/missions</string>
     <string name="title_activity_right_place" translatable="false">@string/right_place</string>
+    <string name="title_activity_licenses" translatable="false">@string/licenses</string>
     <string name="title_activity_credits" translatable="false">@string/us</string>
     <string name="place_check">Check</string>
     <string name="mission_open_map">Open Map</string>
@@ -37,6 +38,7 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
     <!-- Google Play -->
+    <string name="google_play_services" translatable="false">Google Play services</string>
     <!-- Actions -->
     <string name="action_settings" translatable="false">@string/settings</string>
     <string name="action_sign_in_out" translatable="false">@string/sign_in</string>
@@ -52,7 +54,7 @@
     <string name="erase_data">Erase Data</string>
     <string name="erase_data_message">All your progress will be erased from this device. This action is irreversible.</string>
     <string name="about">About</string>
-    <string name="license">License</string>
+    <string name="licenses">Licenses</string>
     <string name="us">Us</string>
     <string name="version">Version</string>
 

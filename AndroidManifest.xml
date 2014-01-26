@@ -51,6 +51,10 @@
             android:label="@string/settings" >
         </activity>
         <activity
+            android:name="com.gian1200.games.streetdom.activities.LicensesActivity"
+            android:label="@string/title_activity_licenses" >
+        </activity>
+        <activity
             android:name="com.gian1200.games.streetdom.activities.CreditsActivity"
             android:label="@string/title_activity_credits" >
         </activity>

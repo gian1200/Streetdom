@@ -39,7 +39,7 @@ public class SettingsActivity extends PreferenceActivity {
 			addPreferencesFromResource(R.xml.preference_headers_legacy);
 			prepareLanguagePreference((ListPreference) findPreference("language"));
 			prepareEraseData(findPreference("erase_data"));
-			prepareLicense(findPreference("license"));
+			prepareLicense(findPreference("licenses"));
 			prepareUs(findPreference("us"));
 			prepareVersion(findPreference("versionname"));
 		}
@@ -179,9 +179,16 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	public void prepareLicense(Preference licensePreference) {
-		// Log.d("",
-		// GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(this));
-		// TODO prepare License
+		licensePreference
+				.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						startActivity(new Intent(SettingsActivity.this,
+								LicensesActivity.class));
+						return true;
+					}
+				});
 	}
 
 	public void prepareVersion(Preference versionPreference) {
@@ -244,7 +251,7 @@ public class SettingsActivity extends PreferenceActivity {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.pref_about);
 			((SettingsActivity) getActivity())
-					.prepareLicense(findPreference("license"));
+					.prepareLicense(findPreference("licenses"));
 			((SettingsActivity) getActivity()).prepareUs(findPreference("us"));
 			((SettingsActivity) getActivity())
 					.prepareVersion(findPreference("versionname"));
