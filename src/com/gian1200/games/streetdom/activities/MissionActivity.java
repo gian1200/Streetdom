@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +18,14 @@ import com.gian1200.games.streetdom.R;
 import com.gian1200.games.streetdom.activities.fragments.ClueFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
 
 public class MissionActivity extends FragmentActivity {
 
 	TextView title, description;
+	ImageView image;
 	Mission mission;
 	private Locale locale;
 
@@ -34,8 +39,18 @@ public class MissionActivity extends FragmentActivity {
 		mission = (Mission) extras.getParcelable(getPackageName() + ".mission");
 		title = (TextView) findViewById(R.id.mission_title);
 		description = (TextView) findViewById(R.id.mission_description);
+		image = (ImageView) findViewById(R.id.mission_image);
 		title.setText(mission.name);
 		description.setText(mission.description);
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+				.displayer(
+						new CircleBitmapDisplayer(getResources().getDimension(
+								R.dimen.mission_image_border_width),
+								getResources().getColor(
+										R.color.edwin_green_light)))
+				.cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader.getInstance()
+				.displayImage(mission.imageURI, image, options);
 	}
 
 	@Override
@@ -117,10 +132,11 @@ public class MissionActivity extends FragmentActivity {
 		}
 	}
 
-	public void mostrarPista(View v) {
+	public void showCurrentClue(View v) {
 		ClueFragment clueFragment = new ClueFragment();
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("clue", mission.getCurrentClue());
+		bundle.putString("missionImageURI", mission.imageURI);
 		clueFragment.setArguments(bundle);
 		clueFragment.show(getSupportFragmentManager(), "clue_fragmemt");
 	}

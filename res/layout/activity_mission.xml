@@ -3,28 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MissionActivity" >
 
-    <TextView
-        android:id="@+id/mission_title"
+    <RelativeLayout
+        android:id="@+id/mission_header"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@android:string/untitled"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="wrap_content" >
+
+        <View
+            android:id="@+id/mission_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/mission_title"
+            android:layout_alignTop="@+id/mission_title"
+            android:layout_centerVertical="true"
+            android:background="@color/edwin_green_light" />
+
+        <ImageView
+            android:id="@+id/mission_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:adjustViewBounds="true"
+            android:maxHeight="150dp"
+            android:maxWidth="150dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/mission_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/mission_image"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left"
+            android:maxLines="2"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="@android:string/untitled"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/mission_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mission_title"
+        android:layout_below="@+id/mission_header"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="31dp"
         android:ellipsize="end"
         android:gravity="fill"
@@ -32,23 +64,52 @@
         android:text="@android:string/unknownName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/mission_open_map"
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/mission_buttons"
+        android:background="@color/edwin_gray_border" />
+
+    <LinearLayout
+        android:id="@+id/mission_buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="openMap"
-        android:text="@string/mission_open_map" />
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:visibility="visible" >
 
-    <Button
-        android:id="@+id/mission_current_clue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/mission_open_map"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:onClick="mostrarPista"
-        android:text="@string/current_clue" />
+        <TextView
+            android:id="@+id/mission_current_clue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/main_achievements_background"
+            android:clickable="true"
+            android:contentDescription="@string/current_clue"
+            android:drawableTop="@drawable/mission_current_clue"
+            android:gravity="center"
+            android:onClick="showCurrentClue"
+            android:padding="10dp"
+            android:text="@string/current_clue"
+            android:textColor="@color/main_achievements_text" />
+
+        <TextView
+            android:id="@+id/mission_open_map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/main_leaderboards_background"
+            android:clickable="true"
+            android:contentDescription="@string/mission_open_map"
+            android:drawableTop="@drawable/mission_open_map"
+            android:gravity="center"
+            android:onClick="openMap"
+            android:padding="10dp"
+            android:text="@string/mission_open_map"
+            android:textColor="@color/main_leaderboards_text" />
+    </LinearLayout>
 
 </RelativeLayout>

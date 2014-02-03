@@ -36,6 +36,7 @@
     <color name="edwin_green_dark">#177A7A</color>
     <color name="edwin_gray_light">#F7F7F8</color>
     <color name="edwin_gray_dark">#ECEDEF</color>
+    <color name="edwin_gray_border">#ACABB1</color>
     <!-- 94dbff 5774B5 -->
     <!-- F9F9F9 F9F9F9 -->
     <color name="edwin_blue_light">#3F517A</color>

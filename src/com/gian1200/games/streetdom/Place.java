@@ -5,20 +5,21 @@ import android.os.Parcelable;
 
 public class Place implements Parcelable {
 	public int id;
-	public String name, description;
+	public String name, description, imageURI;
 	public double latitude, longitude;
 	public boolean visited;
 
-	public Place(int id, String name, String description, double latitude,
-			double longitude) {
-		this(id, name, description, latitude, longitude, false);
+	public Place(int id, String name, String description, String imageURI,
+			double latitude, double longitude) {
+		this(id, name, description, imageURI, latitude, longitude, false);
 	}
 
-	public Place(int id, String name, String description, double latitude,
-			double longitude, boolean visited) {
+	public Place(int id, String name, String description, String imageURI,
+			double latitude, double longitude, boolean visited) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.imageURI = imageURI;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.visited = visited;
@@ -40,6 +41,7 @@ public class Place implements Parcelable {
 		id = in.readInt();
 		name = in.readString();
 		description = in.readString();
+		imageURI = in.readString();
 		latitude = in.readDouble();
 		longitude = in.readDouble();
 		boolean[] booleans = new boolean[1];
@@ -57,6 +59,7 @@ public class Place implements Parcelable {
 		dest.writeInt(id);
 		dest.writeString(name);
 		dest.writeString(description);
+		dest.writeString(imageURI);
 		dest.writeDouble(latitude);
 		dest.writeDouble(longitude);
 		dest.writeBooleanArray(new boolean[] { visited });

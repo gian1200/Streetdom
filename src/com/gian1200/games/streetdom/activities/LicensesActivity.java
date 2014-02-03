@@ -12,7 +12,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class LicensesActivity extends Activity {
 
-	private CardView googlePlayServicesCard, baseGameUtilCard, androidUtilCard;
+	private CardView googlePlayServicesCard, baseGameUtilCard, androidUtilCard,
+			universalImageLoader;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +22,15 @@ public class LicensesActivity extends Activity {
 		googlePlayServicesCard = (CardView) findViewById(R.id.license_google_play_services);
 		baseGameUtilCard = (CardView) findViewById(R.id.license_base_game_utils);
 		androidUtilCard = (CardView) findViewById(R.id.license_android_util);
+		universalImageLoader = (CardView) findViewById(R.id.license_universal_image_loader);
 		googlePlayServicesCard.contentTextView.setText(GooglePlayServicesUtil
 				.getOpenSourceSoftwareLicenseInfo(this));
 		baseGameUtilCard.contentTextView.setText(StringUtil
 				.getLicenseApache2_0(this, "2013", "Google Inc."));
 		androidUtilCard.contentTextView.setText(StringUtil
 				.getAndroidUtilLicense(this));
+		universalImageLoader.contentTextView.setText(StringUtil
+				.getLicenseApache2_0(this, "2013", "Sergey Tarasevich"));
 		googlePlayServicesCard.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -48,6 +52,14 @@ public class LicensesActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				androidUtilCard.expandorCollapseContent();
+			}
+
+		});
+		universalImageLoader.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				universalImageLoader.expandorCollapseContent();
 			}
 
 		});

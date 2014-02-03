@@ -3,39 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PlaceActivity" >
 
-    <TextView
-        android:id="@+id/place_title"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/place_image"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/place_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/place_image"
+        android:layout_centerHorizontal="true"
+        android:background="#B3000000"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
         android:text="@android:string/untitled"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/place_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/place_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
+        android:layout_alignLeft="@+id/place_image"
+        android:layout_below="@+id/place_image"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="20dp"
         android:gravity="fill"
         android:text="@android:string/unknownName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/place_check"
+        android:background="@color/edwin_gray_border" />
+
+    <TextView
         android:id="@+id/place_check"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:background="@drawable/main_achievements_background"
+        android:clickable="true"
+        android:contentDescription="@string/place_check"
+        android:drawableTop="@drawable/place_check"
+        android:gravity="center"
         android:onClick="checkPlace"
-        android:text="@string/place_check" />
+        android:padding="10dp"
+        android:text="@string/place_check"
+        android:textColor="@color/main_achievements_text" />
 
 </RelativeLayout>

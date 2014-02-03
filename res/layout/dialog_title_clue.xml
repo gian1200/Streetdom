@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="64dp" >
+
+    <ImageView
+        android:id="@+id/clue_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/clue_title"
+        android:layout_alignLeft="@+id/clue_title"
+        android:layout_alignRight="@+id/clue_title"
+        android:layout_alignTop="@+id/clue_title"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/trooper"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/clue_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="#B3000000"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:minHeight="64dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="5dp"
+        android:text="@android:string/untitled"
+        android:textAlignment="viewStart"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

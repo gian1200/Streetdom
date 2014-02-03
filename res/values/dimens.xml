@@ -9,5 +9,6 @@
     <dimen name="main_greeting_textsize">18sp</dimen>
     <dimen name="main_missions_textsize">18sp</dimen>
     <dimen name="main_progress_textsize">40sp</dimen>
+    <dimen name="mission_image_border_width">12dp</dimen>
 
 </resources>

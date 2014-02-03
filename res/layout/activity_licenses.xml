@@ -24,11 +24,20 @@
             app:titleText="@string/android_util" />
 
         <com.gian1200.util.views.CardView
+            android:id="@+id/license_universal_image_loader"
+            style="@style/Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentText=""
+            app:contentType="text"
+            app:titleText="@string/universal_image_loader" />
+
+        <com.gian1200.util.views.CardView
             android:id="@+id/license_base_game_utils"
             style="@style/Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentText="este es el texto"
+            app:contentText=""
             app:contentType="text"
             app:titleText="@string/base_game_utils" />
 

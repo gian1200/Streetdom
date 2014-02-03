@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,11 +18,15 @@ import com.gian1200.games.streetdom.Mission;
 import com.gian1200.games.streetdom.Place;
 import com.gian1200.games.streetdom.R;
 import com.google.android.gms.maps.model.LatLng;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class PlaceActivity extends Activity {
 	Mission mission;
 	Place place;
 	TextView title, description;
+	ImageView image;
 	// Location currentLocation;
 	LatLng currentLocation;
 	private Locale locale;
@@ -41,8 +46,14 @@ public class PlaceActivity extends Activity {
 		place = extras.getParcelable(getPackageName() + ".place");
 		title = (TextView) findViewById(R.id.place_title);
 		description = (TextView) findViewById(R.id.place_description);
+		image = (ImageView) findViewById(R.id.place_image);
 		title.setText(place.name);
 		description.setText(place.description);
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+				.displayer(new FadeInBitmapDisplayer(1000)).cacheInMemory(true)
+				.cacheOnDisc(true).build();
+		ImageLoader.getInstance()
+				.displayImage(mission.imageURI, image, options);
 	}
 
 	@Override

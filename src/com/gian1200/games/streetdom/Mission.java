@@ -8,17 +8,18 @@ public class Mission implements Parcelable {
 	public int id;
 	int pointsToEarn;
 	public int currentClue;
-	public String name, description;
+	public String name, description, imageURI;
 	public Place[] places;
 	Clue[] clues;
 	public boolean isCompleted;
 	public float progress;
 
-	public Mission(int id, String name, String description, Place[] places,
-			Clue[] clues) {
+	public Mission(int id, String name, String description, String imageURI,
+			Place[] places, Clue[] clues) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.imageURI = imageURI;
 		this.places = places;
 		this.clues = clues;
 		if (places.length < clues.length) {
@@ -45,6 +46,7 @@ public class Mission implements Parcelable {
 		currentClue = in.readInt();
 		name = in.readString();
 		description = in.readString();
+		imageURI = in.readString();
 		Object[] parcelables = in.readArray(Place.class.getClassLoader());
 		places = new Place[parcelables.length];
 		System.arraycopy(parcelables, 0, places, 0, parcelables.length);
@@ -69,6 +71,7 @@ public class Mission implements Parcelable {
 		dest.writeInt(currentClue);
 		dest.writeString(name);
 		dest.writeString(description);
+		dest.writeString(imageURI);
 		dest.writeArray(places);
 		dest.writeArray(clues);
 		dest.writeBooleanArray(new boolean[] { isCompleted });

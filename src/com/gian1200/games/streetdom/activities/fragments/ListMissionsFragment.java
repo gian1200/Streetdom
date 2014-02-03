@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +20,9 @@ import com.gian1200.games.streetdom.Mission;
 import com.gian1200.games.streetdom.R;
 import com.gian1200.games.streetdom.activities.MissionActivity;
 import com.gian1200.util.ColorUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public abstract class ListMissionsFragment extends Fragment {
 	ListView missionsList;
@@ -97,6 +101,8 @@ public abstract class ListMissionsFragment extends Fragment {
 						.findViewById(R.id.mission_name);
 				holder.progress = (TextView) convertView
 						.findViewById(R.id.mission_progress);
+				holder.icon = (ImageView) convertView
+						.findViewById(R.id.mission_icon);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -111,11 +117,24 @@ public abstract class ListMissionsFragment extends Fragment {
 			}
 			holder.name.setText(getItem(position).name);
 			holder.progress.setText(getString(R.string.progress, progress));
+			DisplayImageOptions options = new DisplayImageOptions.Builder()
+					.displayer(new FadeInBitmapDisplayer(1000))
+					.cacheInMemory(true).cacheOnDisc(true).build();
+			// "http://cdn.screenrant.com/wp-content/uploads/A-Stormtrooper-lost-in-the-desert.-2560x1080-Imgur.jpg"
+			// "drawable://" + R.drawable.trooper
+			// ImageLoader.getInstance().displayImage(
+			// "drawable://" + R.drawable.trooper, holder.icon, options);
+			ImageLoader.getInstance().displayImage(getItem(position).imageURI,
+					holder.icon, options);
+			// BitmapUtil.loadResourceAsyncWithCache(activity, holder.icon,
+			// R.drawable.trooper, 100, 100, false);
 			return convertView;
 		}
 
 		private class ViewHolder {
 			TextView name, progress;
+			ImageView icon;
+
 		}
 	}
 }
