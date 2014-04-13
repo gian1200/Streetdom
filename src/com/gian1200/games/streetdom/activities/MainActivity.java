@@ -20,6 +20,8 @@ import com.gian1200.games.streetdom.Application;
 import com.gian1200.games.streetdom.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 
@@ -40,8 +42,9 @@ public class MainActivity extends Activity implements GameHelperListener {
 		signInBar = (LinearLayout) findViewById(R.id.main_sign_in_bar);
 		signedInBar = (LinearLayout) findViewById(R.id.main_signed_in_bar);
 		greeting = (TextView) findViewById(R.id.main_greeting);
-		mHelper = new GameHelper(this);
-		mHelper.setup(this, GameHelper.CLIENT_GAMES);
+		mHelper = new GameHelper(this, GameHelper.CLIENT_GAMES
+				| GameHelper.CLIENT_PLUS);
+		mHelper.setup(this);
 		TextView progress = (TextView) findViewById(R.id.main_progress);
 		progress.setText(getString(R.string.progress, 100f));
 	}
@@ -55,7 +58,6 @@ public class MainActivity extends Activity implements GameHelperListener {
 			overridePendingTransition(0, 0);
 			return;
 		}
-		mHelper.onStart(this);
 		int errorCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(this);
 		switch (errorCode) {
@@ -72,12 +74,13 @@ public class MainActivity extends Activity implements GameHelperListener {
 							R.integer.request_code_play_services)).show();
 			break;
 		}
+		mHelper.onStart(this);
 	}
 
 	@Override
 	protected void onStop() {
-		super.onStop();
 		mHelper.onStop();
+		super.onStop();
 	}
 
 	@Override
@@ -88,11 +91,14 @@ public class MainActivity extends Activity implements GameHelperListener {
 
 		} else if (getResources().getInteger(
 				R.integer.request_code_play_services) == requestCode) {
-			if (resultCode != RESULT_OK) {
+			if (resultCode == RESULT_OK) {
+
+			} else {
 				Toast.makeText(this,
 						R.string.common_google_play_services_update_text,
 						Toast.LENGTH_LONG).show();
 			}
+
 		} else if (getResources().getInteger(
 				R.integer.request_code_achievements) == requestCode) {
 		} else if (getResources().getInteger(
@@ -156,15 +162,16 @@ public class MainActivity extends Activity implements GameHelperListener {
 	}
 
 	public void showAchievements(View v) {
-		startActivityForResult(
-				mHelper.getGamesClient().getAchievementsIntent(),
+		startActivityForResult(Games.Achievements.getAchievementsIntent(mHelper
+				.getApiClient()),
 				getResources().getInteger(R.integer.request_code_achievements));
 	}
 
 	public void showLeaderboard(View v) {
-		startActivityForResult(mHelper.getGamesClient()
-				.getAllLeaderboardsIntent(),
-				getResources().getInteger(R.integer.request_code_leaderboards));
+		startActivityForResult(
+				Games.Leaderboards.getAllLeaderboardsIntent(mHelper
+						.getApiClient()),
+				getResources().getInteger(R.integer.request_code_achievements));
 	}
 
 	void signIn() {
@@ -205,16 +212,21 @@ public class MainActivity extends Activity implements GameHelperListener {
 	}
 
 	void updateUI() {
-		if (mHelper != null && mHelper.isSignedIn()) {
+		if (mHelper.isSignedIn()) {
 			signInBar.setVisibility(View.GONE);
 			signedInBar.setVisibility(View.VISIBLE);
-			// greeting.setText(getString(R.string.signed_in_greeting, mHelper
-			// .getPlusClient().getCurrentPerson().getName()
-			// .getGivenName()));
-			Log.d("CurrentPlayer", mHelper.getGamesClient().getCurrentPlayer()
-					.toString());
-			greeting.setText(getString(R.string.signed_in_greeting, mHelper
-					.getGamesClient().getCurrentPlayer().getDisplayName()));
+			Log.d("CurrentPlayer",
+					Games.Players.getCurrentPlayer(mHelper.getApiClient())
+							.toString());
+			Log.d("CurrentPlayer",
+					Plus.PeopleApi.getCurrentPerson(mHelper.getApiClient())
+							.getName().getGivenName());
+			greeting.setText(getString(R.string.signed_in_greeting,
+					Games.Players.getCurrentPlayer(mHelper.getApiClient())
+							.getDisplayName()));
+			// greeting.setText(getString(R.string.signed_in_greeting,
+			// Plus.PeopleApi.getCurrentPerson(mHelper.getApiClient())
+			// .getName().getGivenName()));
 		} else {
 			signInBar.setVisibility(View.VISIBLE);
 			signedInBar.setVisibility(View.GONE);

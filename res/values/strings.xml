@@ -58,6 +58,12 @@
     <string name="licenses">Licenses</string>
     <string name="universal_image_loader" translatable="false">Universal Image Loader</string>
     <string name="us">Us</string>
+    <string name="developer">Developer</string>
+    <string name="designer">Designer</string>
+    <string name="giancarlo" translatable="false">Giancarlo Calderón</string>
+    <string name="giancarlo_link" translatable="false"></string>
+    <string name="edwin" translatable="false">Edwin Chavest</string>
+    <string name="edwin_link" translatable="false"></string>
     <string name="version">Version</string>
 
 </resources>

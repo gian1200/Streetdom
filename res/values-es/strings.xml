@@ -41,6 +41,8 @@
     <string name="about">Acerca de</string>
     <string name="licenses">Licencias</string>
     <string name="us">Nosotros</string>
+    <string name="developer">Desarrollador</string>
+    <string name="designer">Diseñador</string>
     <string name="version">Versión</string>
 
 </resources>
